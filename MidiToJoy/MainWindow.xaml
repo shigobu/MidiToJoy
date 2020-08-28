@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MidiToJoy"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="MidiToJoy" Loaded="Window_Loaded" SizeToContent="WidthAndHeight" Closed="Window_Closed">
+	<StackPanel Margin="5">
+		<ComboBox x:Name="comboBoxMidiInDevices" SelectionChanged="ComboBoxMidiInDevices_SelectionChanged"></ComboBox>
+		<TextBlock x:Name="textBox"></TextBlock>
+	</StackPanel>
 </Window>
