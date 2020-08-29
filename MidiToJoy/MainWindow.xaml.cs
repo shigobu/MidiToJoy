@@ -124,14 +124,10 @@ namespace MidiToJoy
 		{
 			if (e.MidiEvent.CommandCode == MidiCommandCode.PitchWheelChange && e.MidiEvent.Channel == 1)
 			{
-				string text = "";
-
 				int valu = 0;
-				byte byte1 = (byte)(e.RawMessage >> 16);
-				byte byte2 = (byte)(e.RawMessage >> 8);
-				valu = byte1 * byte2;
-
-				text = valu.ToString();
+				byte LSB = (byte)(e.RawMessage >> 8);
+				byte MSB = (byte)(e.RawMessage >> 16);
+				valu = (MSB << 7) + LSB;
 
 				long Xmax = 0;
 				joystick.GetVJDAxisMax(vjoyId, HID_USAGES.HID_USAGE_X, ref Xmax);
@@ -141,9 +137,6 @@ namespace MidiToJoy
 				valu = (int)Map(valu, 0, 16129, (int)Xmin, (int)Xmax);
 				joystick.SetAxis(valu, vjoyId, HID_USAGES.HID_USAGE_X);
 
-				text += "\n" + valu.ToString();
-
-				settext(text);
 			}
 		}
 
@@ -159,21 +152,6 @@ namespace MidiToJoy
 		double Map(double value, double start1, double stop1, double start2, double stop2)
 		{
 			return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
-		}
-
-		private void settext(string text)
-		{
-			if (textBox.Dispatcher.CheckAccess())
-			{
-				textBox.Text = text;
-			}
-			else
-			{
-				textBox.Dispatcher.Invoke(() =>
-				{
-					textBox.Text = text;
-				});
-			}
 		}
 
 		private void Window_Closed(object sender, EventArgs e)

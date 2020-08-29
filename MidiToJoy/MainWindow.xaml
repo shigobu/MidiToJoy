@@ -5,9 +5,458 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MidiToJoy"
         mc:Ignorable="d"
-        Title="MidiToJoy" Loaded="Window_Loaded" SizeToContent="WidthAndHeight" Closed="Window_Closed">
+        Title="MidiToJoy" Loaded="Window_Loaded" SizeToContent="WidthAndHeight" Closed="Window_Closed" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 	<StackPanel Margin="5">
-		<ComboBox x:Name="comboBoxMidiInDevices" SelectionChanged="ComboBoxMidiInDevices_SelectionChanged"></ComboBox>
-		<TextBlock x:Name="textBox"></TextBlock>
+		<TextBlock Margin="3" TextAlignment="Left">MIDI入力デバイス</TextBlock>
+		<ComboBox x:Name="comboBoxMidiInDevices" Margin="3" SelectionChanged="ComboBoxMidiInDevices_SelectionChanged"/>
+		<TabControl Margin="3" Width="350" Height="500">
+			<TabItem Header="アナログ">
+				<StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Width="60" Margin="3" Text="軸名"/>
+						<TextBlock Width="60" Margin="3" Text="チャンネル"/>
+						<TextBlock Width="80" Margin="3" Text="種類"/>
+						<TextBlock Width="60" Margin="3" Text="CCナンバー"/>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Width="60" Text="X+" VerticalAlignment="Center" Margin="3"/>
+						<ComboBox Width="60" x:Name="XPlusChannelCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>1</ComboBoxItem>
+							<ComboBoxItem>2</ComboBoxItem>
+							<ComboBoxItem>3</ComboBoxItem>
+							<ComboBoxItem>4</ComboBoxItem>
+							<ComboBoxItem>5</ComboBoxItem>
+							<ComboBoxItem>6</ComboBoxItem>
+							<ComboBoxItem>7</ComboBoxItem>
+							<ComboBoxItem>8</ComboBoxItem>
+							<ComboBoxItem>9</ComboBoxItem>
+							<ComboBoxItem>10</ComboBoxItem>
+							<ComboBoxItem>11</ComboBoxItem>
+							<ComboBoxItem>12</ComboBoxItem>
+							<ComboBoxItem>13</ComboBoxItem>
+							<ComboBoxItem>14</ComboBoxItem>
+							<ComboBoxItem>15</ComboBoxItem>
+							<ComboBoxItem>16</ComboBoxItem>
+						</ComboBox>
+						<ComboBox Width="80" x:Name="XPlusCommandCodeCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>CC</ComboBoxItem>
+							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+						</ComboBox>
+						<TextBox Width="60" x:Name="XPlusCCNumTextBox" Margin="3"/>
+						<Button Margin="3" x:Name="XPlusSettingButton">設定</Button>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Width="60" Text="X-" VerticalAlignment="Center" Margin="3"/>
+						<ComboBox Width="60" x:Name="XMinusChannelCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>1</ComboBoxItem>
+							<ComboBoxItem>2</ComboBoxItem>
+							<ComboBoxItem>3</ComboBoxItem>
+							<ComboBoxItem>4</ComboBoxItem>
+							<ComboBoxItem>5</ComboBoxItem>
+							<ComboBoxItem>6</ComboBoxItem>
+							<ComboBoxItem>7</ComboBoxItem>
+							<ComboBoxItem>8</ComboBoxItem>
+							<ComboBoxItem>9</ComboBoxItem>
+							<ComboBoxItem>10</ComboBoxItem>
+							<ComboBoxItem>11</ComboBoxItem>
+							<ComboBoxItem>12</ComboBoxItem>
+							<ComboBoxItem>13</ComboBoxItem>
+							<ComboBoxItem>14</ComboBoxItem>
+							<ComboBoxItem>15</ComboBoxItem>
+							<ComboBoxItem>16</ComboBoxItem>
+						</ComboBox>
+						<ComboBox Width="80" x:Name="XMinusCommandCodeCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>CC</ComboBoxItem>
+							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+						</ComboBox>
+						<TextBox Width="60" x:Name="XMinusCCNumTextBox" Margin="3"/>
+						<Button Margin="3" x:Name="XMinusSettingButton">設定</Button>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Width="60" Text="Y+" VerticalAlignment="Center" Margin="3"/>
+						<ComboBox Width="60" x:Name="YPlusChannelCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>1</ComboBoxItem>
+							<ComboBoxItem>2</ComboBoxItem>
+							<ComboBoxItem>3</ComboBoxItem>
+							<ComboBoxItem>4</ComboBoxItem>
+							<ComboBoxItem>5</ComboBoxItem>
+							<ComboBoxItem>6</ComboBoxItem>
+							<ComboBoxItem>7</ComboBoxItem>
+							<ComboBoxItem>8</ComboBoxItem>
+							<ComboBoxItem>9</ComboBoxItem>
+							<ComboBoxItem>10</ComboBoxItem>
+							<ComboBoxItem>11</ComboBoxItem>
+							<ComboBoxItem>12</ComboBoxItem>
+							<ComboBoxItem>13</ComboBoxItem>
+							<ComboBoxItem>14</ComboBoxItem>
+							<ComboBoxItem>15</ComboBoxItem>
+							<ComboBoxItem>16</ComboBoxItem>
+						</ComboBox>
+						<ComboBox Width="80" x:Name="YPlusCommandCodeCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>CC</ComboBoxItem>
+							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+						</ComboBox>
+						<TextBox Width="60" x:Name="YPlusCCNumTextBox" Margin="3"/>
+						<Button Margin="3" x:Name="YPlusSettingButton">設定</Button>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Width="60" Text="Y-" VerticalAlignment="Center" Margin="3"/>
+						<ComboBox Width="60" x:Name="YMinusChannelCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>1</ComboBoxItem>
+							<ComboBoxItem>2</ComboBoxItem>
+							<ComboBoxItem>3</ComboBoxItem>
+							<ComboBoxItem>4</ComboBoxItem>
+							<ComboBoxItem>5</ComboBoxItem>
+							<ComboBoxItem>6</ComboBoxItem>
+							<ComboBoxItem>7</ComboBoxItem>
+							<ComboBoxItem>8</ComboBoxItem>
+							<ComboBoxItem>9</ComboBoxItem>
+							<ComboBoxItem>10</ComboBoxItem>
+							<ComboBoxItem>11</ComboBoxItem>
+							<ComboBoxItem>12</ComboBoxItem>
+							<ComboBoxItem>13</ComboBoxItem>
+							<ComboBoxItem>14</ComboBoxItem>
+							<ComboBoxItem>15</ComboBoxItem>
+							<ComboBoxItem>16</ComboBoxItem>
+						</ComboBox>
+						<ComboBox Width="80" x:Name="YMinusCommandCodeCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>CC</ComboBoxItem>
+							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+						</ComboBox>
+						<TextBox Width="60" x:Name="YMinusCCNumTextBox" Margin="3"/>
+						<Button Margin="3" x:Name="YMinusSettingButton">設定</Button>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Width="60" Text="Z+" VerticalAlignment="Center" Margin="3"/>
+						<ComboBox Width="60" x:Name="ZPlusChannelCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>1</ComboBoxItem>
+							<ComboBoxItem>2</ComboBoxItem>
+							<ComboBoxItem>3</ComboBoxItem>
+							<ComboBoxItem>4</ComboBoxItem>
+							<ComboBoxItem>5</ComboBoxItem>
+							<ComboBoxItem>6</ComboBoxItem>
+							<ComboBoxItem>7</ComboBoxItem>
+							<ComboBoxItem>8</ComboBoxItem>
+							<ComboBoxItem>9</ComboBoxItem>
+							<ComboBoxItem>10</ComboBoxItem>
+							<ComboBoxItem>11</ComboBoxItem>
+							<ComboBoxItem>12</ComboBoxItem>
+							<ComboBoxItem>13</ComboBoxItem>
+							<ComboBoxItem>14</ComboBoxItem>
+							<ComboBoxItem>15</ComboBoxItem>
+							<ComboBoxItem>16</ComboBoxItem>
+						</ComboBox>
+						<ComboBox Width="80" x:Name="ZPlusCommandCodeCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>CC</ComboBoxItem>
+							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+						</ComboBox>
+						<TextBox Width="60" x:Name="ZPlusCCNumTextBox" Margin="3"/>
+						<Button Margin="3" x:Name="ZPlusSettingButton">設定</Button>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Width="60" Text="Z-" VerticalAlignment="Center" Margin="3"/>
+						<ComboBox Width="60" x:Name="ZMinusChannelCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>1</ComboBoxItem>
+							<ComboBoxItem>2</ComboBoxItem>
+							<ComboBoxItem>3</ComboBoxItem>
+							<ComboBoxItem>4</ComboBoxItem>
+							<ComboBoxItem>5</ComboBoxItem>
+							<ComboBoxItem>6</ComboBoxItem>
+							<ComboBoxItem>7</ComboBoxItem>
+							<ComboBoxItem>8</ComboBoxItem>
+							<ComboBoxItem>9</ComboBoxItem>
+							<ComboBoxItem>10</ComboBoxItem>
+							<ComboBoxItem>11</ComboBoxItem>
+							<ComboBoxItem>12</ComboBoxItem>
+							<ComboBoxItem>13</ComboBoxItem>
+							<ComboBoxItem>14</ComboBoxItem>
+							<ComboBoxItem>15</ComboBoxItem>
+							<ComboBoxItem>16</ComboBoxItem>
+						</ComboBox>
+						<ComboBox Width="80" x:Name="ZMinusCommandCodeCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>CC</ComboBoxItem>
+							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+						</ComboBox>
+						<TextBox Width="60" x:Name="ZMinusCCNumTextBox" Margin="3"/>
+						<Button Margin="3" x:Name="ZMinusSettingButton">設定</Button>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Width="60" Text="X回転+" VerticalAlignment="Center" Margin="3"/>
+						<ComboBox Width="60" x:Name="XRPlusChannelCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>1</ComboBoxItem>
+							<ComboBoxItem>2</ComboBoxItem>
+							<ComboBoxItem>3</ComboBoxItem>
+							<ComboBoxItem>4</ComboBoxItem>
+							<ComboBoxItem>5</ComboBoxItem>
+							<ComboBoxItem>6</ComboBoxItem>
+							<ComboBoxItem>7</ComboBoxItem>
+							<ComboBoxItem>8</ComboBoxItem>
+							<ComboBoxItem>9</ComboBoxItem>
+							<ComboBoxItem>10</ComboBoxItem>
+							<ComboBoxItem>11</ComboBoxItem>
+							<ComboBoxItem>12</ComboBoxItem>
+							<ComboBoxItem>13</ComboBoxItem>
+							<ComboBoxItem>14</ComboBoxItem>
+							<ComboBoxItem>15</ComboBoxItem>
+							<ComboBoxItem>16</ComboBoxItem>
+						</ComboBox>
+						<ComboBox Width="80" x:Name="XRPlusCommandCodeCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>CC</ComboBoxItem>
+							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+						</ComboBox>
+						<TextBox Width="60" x:Name="XRPlusCCNumTextBox" Margin="3"/>
+						<Button Margin="3" x:Name="XRPlusSettingButton">設定</Button>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Width="60" Text="X回転-" VerticalAlignment="Center" Margin="3"/>
+						<ComboBox Width="60" x:Name="XRMinusChannelCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>1</ComboBoxItem>
+							<ComboBoxItem>2</ComboBoxItem>
+							<ComboBoxItem>3</ComboBoxItem>
+							<ComboBoxItem>4</ComboBoxItem>
+							<ComboBoxItem>5</ComboBoxItem>
+							<ComboBoxItem>6</ComboBoxItem>
+							<ComboBoxItem>7</ComboBoxItem>
+							<ComboBoxItem>8</ComboBoxItem>
+							<ComboBoxItem>9</ComboBoxItem>
+							<ComboBoxItem>10</ComboBoxItem>
+							<ComboBoxItem>11</ComboBoxItem>
+							<ComboBoxItem>12</ComboBoxItem>
+							<ComboBoxItem>13</ComboBoxItem>
+							<ComboBoxItem>14</ComboBoxItem>
+							<ComboBoxItem>15</ComboBoxItem>
+							<ComboBoxItem>16</ComboBoxItem>
+						</ComboBox>
+						<ComboBox Width="80" x:Name="XRMinusCommandCodeCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>CC</ComboBoxItem>
+							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+						</ComboBox>
+						<TextBox Width="60" x:Name="XRMinusCCNumTextBox" Margin="3"/>
+						<Button Margin="3" x:Name="XRMinusSettingButton">設定</Button>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Width="60" Text="Y回転+" VerticalAlignment="Center" Margin="3"/>
+						<ComboBox Width="60" x:Name="YRPlusChannelCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>1</ComboBoxItem>
+							<ComboBoxItem>2</ComboBoxItem>
+							<ComboBoxItem>3</ComboBoxItem>
+							<ComboBoxItem>4</ComboBoxItem>
+							<ComboBoxItem>5</ComboBoxItem>
+							<ComboBoxItem>6</ComboBoxItem>
+							<ComboBoxItem>7</ComboBoxItem>
+							<ComboBoxItem>8</ComboBoxItem>
+							<ComboBoxItem>9</ComboBoxItem>
+							<ComboBoxItem>10</ComboBoxItem>
+							<ComboBoxItem>11</ComboBoxItem>
+							<ComboBoxItem>12</ComboBoxItem>
+							<ComboBoxItem>13</ComboBoxItem>
+							<ComboBoxItem>14</ComboBoxItem>
+							<ComboBoxItem>15</ComboBoxItem>
+							<ComboBoxItem>16</ComboBoxItem>
+						</ComboBox>
+						<ComboBox Width="80" x:Name="YRPlusCommandCodeCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>CC</ComboBoxItem>
+							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+						</ComboBox>
+						<TextBox Width="60" x:Name="YRPlusCCNumTextBox" Margin="3"/>
+						<Button Margin="3" x:Name="YRPlusSettingButton">設定</Button>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Width="60" Text="Y回転-" VerticalAlignment="Center" Margin="3"/>
+						<ComboBox Width="60" x:Name="YRMinusChannelCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>1</ComboBoxItem>
+							<ComboBoxItem>2</ComboBoxItem>
+							<ComboBoxItem>3</ComboBoxItem>
+							<ComboBoxItem>4</ComboBoxItem>
+							<ComboBoxItem>5</ComboBoxItem>
+							<ComboBoxItem>6</ComboBoxItem>
+							<ComboBoxItem>7</ComboBoxItem>
+							<ComboBoxItem>8</ComboBoxItem>
+							<ComboBoxItem>9</ComboBoxItem>
+							<ComboBoxItem>10</ComboBoxItem>
+							<ComboBoxItem>11</ComboBoxItem>
+							<ComboBoxItem>12</ComboBoxItem>
+							<ComboBoxItem>13</ComboBoxItem>
+							<ComboBoxItem>14</ComboBoxItem>
+							<ComboBoxItem>15</ComboBoxItem>
+							<ComboBoxItem>16</ComboBoxItem>
+						</ComboBox>
+						<ComboBox Width="80" x:Name="YRMinusCommandCodeCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>CC</ComboBoxItem>
+							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+						</ComboBox>
+						<TextBox Width="60" x:Name="YRMinusCCNumTextBox" Margin="3"/>
+						<Button Margin="3" x:Name="YRMinusSettingButton">設定</Button>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Width="60" Text="Z回転+" VerticalAlignment="Center" Margin="3"/>
+						<ComboBox Width="60" x:Name="ZRPlusChannelCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>1</ComboBoxItem>
+							<ComboBoxItem>2</ComboBoxItem>
+							<ComboBoxItem>3</ComboBoxItem>
+							<ComboBoxItem>4</ComboBoxItem>
+							<ComboBoxItem>5</ComboBoxItem>
+							<ComboBoxItem>6</ComboBoxItem>
+							<ComboBoxItem>7</ComboBoxItem>
+							<ComboBoxItem>8</ComboBoxItem>
+							<ComboBoxItem>9</ComboBoxItem>
+							<ComboBoxItem>10</ComboBoxItem>
+							<ComboBoxItem>11</ComboBoxItem>
+							<ComboBoxItem>12</ComboBoxItem>
+							<ComboBoxItem>13</ComboBoxItem>
+							<ComboBoxItem>14</ComboBoxItem>
+							<ComboBoxItem>15</ComboBoxItem>
+							<ComboBoxItem>16</ComboBoxItem>
+						</ComboBox>
+						<ComboBox Width="80" x:Name="ZRPlusCommandCodeCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>CC</ComboBoxItem>
+							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+						</ComboBox>
+						<TextBox Width="60" x:Name="ZRPlusCCNumTextBox" Margin="3"/>
+						<Button Margin="3" x:Name="ZRPlusSettingButton">設定</Button>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Width="60" Text="Z回転-" VerticalAlignment="Center" Margin="3"/>
+						<ComboBox Width="60" x:Name="ZRMinusChannelCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>1</ComboBoxItem>
+							<ComboBoxItem>2</ComboBoxItem>
+							<ComboBoxItem>3</ComboBoxItem>
+							<ComboBoxItem>4</ComboBoxItem>
+							<ComboBoxItem>5</ComboBoxItem>
+							<ComboBoxItem>6</ComboBoxItem>
+							<ComboBoxItem>7</ComboBoxItem>
+							<ComboBoxItem>8</ComboBoxItem>
+							<ComboBoxItem>9</ComboBoxItem>
+							<ComboBoxItem>10</ComboBoxItem>
+							<ComboBoxItem>11</ComboBoxItem>
+							<ComboBoxItem>12</ComboBoxItem>
+							<ComboBoxItem>13</ComboBoxItem>
+							<ComboBoxItem>14</ComboBoxItem>
+							<ComboBoxItem>15</ComboBoxItem>
+							<ComboBoxItem>16</ComboBoxItem>
+						</ComboBox>
+						<ComboBox Width="80" x:Name="ZRMinusCommandCodeCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>CC</ComboBoxItem>
+							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+						</ComboBox>
+						<TextBox Width="60" x:Name="ZRMinusCCNumTextBox" Margin="3"/>
+						<Button Margin="3" x:Name="ZRMinusSettingButton">設定</Button>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Width="60" Text="スライダー+" VerticalAlignment="Center" Margin="3"/>
+						<ComboBox Width="60" x:Name="SliderPlusChannelCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>1</ComboBoxItem>
+							<ComboBoxItem>2</ComboBoxItem>
+							<ComboBoxItem>3</ComboBoxItem>
+							<ComboBoxItem>4</ComboBoxItem>
+							<ComboBoxItem>5</ComboBoxItem>
+							<ComboBoxItem>6</ComboBoxItem>
+							<ComboBoxItem>7</ComboBoxItem>
+							<ComboBoxItem>8</ComboBoxItem>
+							<ComboBoxItem>9</ComboBoxItem>
+							<ComboBoxItem>10</ComboBoxItem>
+							<ComboBoxItem>11</ComboBoxItem>
+							<ComboBoxItem>12</ComboBoxItem>
+							<ComboBoxItem>13</ComboBoxItem>
+							<ComboBoxItem>14</ComboBoxItem>
+							<ComboBoxItem>15</ComboBoxItem>
+							<ComboBoxItem>16</ComboBoxItem>
+						</ComboBox>
+						<ComboBox Width="80" x:Name="SliderPlusCommandCodeCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>CC</ComboBoxItem>
+							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+						</ComboBox>
+						<TextBox Width="60" x:Name="SliderPlusCCNumTextBox" Margin="3"/>
+						<Button Margin="3" x:Name="SliderPlusSettingButton">設定</Button>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Width="60" Text="スライダー-" VerticalAlignment="Center" Margin="3"/>
+						<ComboBox Width="60" x:Name="SliderMinusChannelCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>1</ComboBoxItem>
+							<ComboBoxItem>2</ComboBoxItem>
+							<ComboBoxItem>3</ComboBoxItem>
+							<ComboBoxItem>4</ComboBoxItem>
+							<ComboBoxItem>5</ComboBoxItem>
+							<ComboBoxItem>6</ComboBoxItem>
+							<ComboBoxItem>7</ComboBoxItem>
+							<ComboBoxItem>8</ComboBoxItem>
+							<ComboBoxItem>9</ComboBoxItem>
+							<ComboBoxItem>10</ComboBoxItem>
+							<ComboBoxItem>11</ComboBoxItem>
+							<ComboBoxItem>12</ComboBoxItem>
+							<ComboBoxItem>13</ComboBoxItem>
+							<ComboBoxItem>14</ComboBoxItem>
+							<ComboBoxItem>15</ComboBoxItem>
+							<ComboBoxItem>16</ComboBoxItem>
+						</ComboBox>
+						<ComboBox Width="80" x:Name="SliderMinusCommandCodeCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>CC</ComboBoxItem>
+							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+						</ComboBox>
+						<TextBox Width="60" x:Name="SliderMinusCCNumTextBox" Margin="3"/>
+						<Button Margin="3" x:Name="SliderMinusSettingButton">設定</Button>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Width="60" Text="ダイヤル+" VerticalAlignment="Center" Margin="3"/>
+						<ComboBox Width="60" x:Name="DialPlusChannelCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>1</ComboBoxItem>
+							<ComboBoxItem>2</ComboBoxItem>
+							<ComboBoxItem>3</ComboBoxItem>
+							<ComboBoxItem>4</ComboBoxItem>
+							<ComboBoxItem>5</ComboBoxItem>
+							<ComboBoxItem>6</ComboBoxItem>
+							<ComboBoxItem>7</ComboBoxItem>
+							<ComboBoxItem>8</ComboBoxItem>
+							<ComboBoxItem>9</ComboBoxItem>
+							<ComboBoxItem>10</ComboBoxItem>
+							<ComboBoxItem>11</ComboBoxItem>
+							<ComboBoxItem>12</ComboBoxItem>
+							<ComboBoxItem>13</ComboBoxItem>
+							<ComboBoxItem>14</ComboBoxItem>
+							<ComboBoxItem>15</ComboBoxItem>
+							<ComboBoxItem>16</ComboBoxItem>
+						</ComboBox>
+						<ComboBox Width="80" x:Name="DialPlusCommandCodeCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>CC</ComboBoxItem>
+							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+						</ComboBox>
+						<TextBox Width="60" x:Name="DialPlusCCNumTextBox" Margin="3"/>
+						<Button Margin="3" x:Name="DialPlusSettingButton">設定</Button>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Width="60" Text="ダイヤル-" VerticalAlignment="Center" Margin="3"/>
+						<ComboBox Width="60" x:Name="DialMinusChannelCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>1</ComboBoxItem>
+							<ComboBoxItem>2</ComboBoxItem>
+							<ComboBoxItem>3</ComboBoxItem>
+							<ComboBoxItem>4</ComboBoxItem>
+							<ComboBoxItem>5</ComboBoxItem>
+							<ComboBoxItem>6</ComboBoxItem>
+							<ComboBoxItem>7</ComboBoxItem>
+							<ComboBoxItem>8</ComboBoxItem>
+							<ComboBoxItem>9</ComboBoxItem>
+							<ComboBoxItem>10</ComboBoxItem>
+							<ComboBoxItem>11</ComboBoxItem>
+							<ComboBoxItem>12</ComboBoxItem>
+							<ComboBoxItem>13</ComboBoxItem>
+							<ComboBoxItem>14</ComboBoxItem>
+							<ComboBoxItem>15</ComboBoxItem>
+							<ComboBoxItem>16</ComboBoxItem>
+						</ComboBox>
+						<ComboBox Width="80" x:Name="DialMinusCommandCodeCombo" SelectedIndex="0" Margin="3">
+							<ComboBoxItem>CC</ComboBoxItem>
+							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+						</ComboBox>
+						<TextBox Width="60" x:Name="DialMinusCCNumTextBox" Margin="3"/>
+						<Button Margin="3" x:Name="DialMinusSettingButton">設定</Button>
+					</StackPanel>
+				</StackPanel>			
+			</TabItem>
+			<TabItem Header="ボタン">
+				<StackPanel Margin="3">
+				</StackPanel>
+			</TabItem>
+		</TabControl>
+		
 	</StackPanel>
 </Window>
