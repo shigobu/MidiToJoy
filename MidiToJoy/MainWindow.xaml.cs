@@ -14,6 +14,11 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using vJoyInterfaceWrap;
 using NAudio.Midi;
+using System.Xml.Serialization;
+using System.IO;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Xml;
 
 namespace MidiToJoy
 {
@@ -451,20 +456,66 @@ namespace MidiToJoy
 			return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
 		}
 
+		//データの保存
+		private void SaveData()
+		{
+			Dictionary<Axis, ChannelCommandCCnum> axisData = new Dictionary<Axis, ChannelCommandCCnum>();
+			foreach (Axis item in Enum.GetValues(typeof(Axis)))
+			{
+				ComboBox ChannelCombo = AxisChannelCombos[item];
+				ComboBox CommandCodeCombo = AxisCommandCodeCombos[item];
+				TextBox CCNumText = AxisCCNumTextBoxs[item];
+
+				int channel = ChannelCombo.SelectedIndex;
+				string commandCodeName = ((ComboBoxItem)CommandCodeCombo.SelectedItem).Content.ToString();
+				int CCnum = 0;
+				int.TryParse(CCNumText.Text, out CCnum);
+
+				ChannelCommandCCnum channelCommandCCnum = new ChannelCommandCCnum(channel, commandCodeName, CCnum);
+
+				axisData.Add(item, channelCommandCCnum);
+			}
+			DataClass dataClass = new DataClass()
+			{
+				AxisData = axisData
+			};
+
+			// シリアライズ先のファイル
+			Assembly myAssembly = Assembly.GetEntryAssembly();
+			string path = myAssembly.Location;
+			string xmlFileName = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(path), "setting.xml");
+
+			//DataContractSerializerオブジェクトを作成
+			//オブジェクトの型を指定する
+			DataContractSerializer serializer =	new DataContractSerializer(typeof(DataClass));
+			//BOMが付かないUTF-8で、書き込むファイルを開く
+			XmlWriterSettings settings = new XmlWriterSettings();
+			settings.Encoding = new UTF8Encoding(false);
+			using (XmlWriter xw = XmlWriter.Create(xmlFileName, settings))
+			{
+				//シリアル化し、XMLファイルに保存する
+				serializer.WriteObject(xw, dataClass);
+			}
+		}
+
 		private void Window_Closed(object sender, EventArgs e)
 		{
 			if (MidiIn != null)
 			{
 				MidiIn.Stop();
 				MidiIn.Dispose();
+				MidiIn = null;
 			}
+
+			SaveData();
 		}
 	}
 
 	/// <summary>
 	/// アナログ軸
 	/// </summary>
-	enum Axis
+	[Serializable]
+	public enum Axis
 	{
 		XPlus,
 		XMinus,
