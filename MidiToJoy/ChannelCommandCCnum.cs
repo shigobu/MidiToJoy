@@ -13,10 +13,10 @@ namespace MidiToJoy
 		{
 		}
 
-		public ChannelCommandCCnum(int channel, string commandCode, int cCnum)
+		public ChannelCommandCCnum(int channel, int commandCode, int cCnum)
 		{
 			Channel = channel;
-			CommandCode = commandCode ?? throw new ArgumentNullException(nameof(commandCode));
+			CommandCode = commandCode;
 			CCnum = cCnum;
 		}
 
@@ -28,7 +28,7 @@ namespace MidiToJoy
 		/// <summary>
 		/// コマンドコード名
 		/// </summary>
-		public string CommandCode { get; set; } = "CC";
+		public int CommandCode { get; set; } = 0;
 
 		/// <summary>
 		/// CC番号

@@ -162,6 +162,7 @@ namespace MidiToJoy
 				{Axis.DialMinus, DialMinusCCNumTextBox }
 			};
 
+			LoadData();
 		}
 
 		private void ChangedCB(bool Removed, bool First, object userData)
@@ -456,7 +457,51 @@ namespace MidiToJoy
 			return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
 		}
 
-		//データの保存
+		/// <summary>
+		/// データ読み込み
+		/// </summary>
+		private void LoadData()
+		{
+			// シリアライズ先のファイル
+			Assembly myAssembly = Assembly.GetEntryAssembly();
+			string path = myAssembly.Location;
+			string xmlFileName = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(path), "setting.xml");
+
+			//ファイル存在確認
+			if (!File.Exists(xmlFileName))
+			{
+				return;
+			}
+
+			//DataContractSerializerオブジェクトを作成
+			DataContractSerializer serializer =	new DataContractSerializer(typeof(DataClass));
+			//読み込むファイルを開く
+			DataClass dataClass;
+			using (XmlReader xr = XmlReader.Create(xmlFileName))
+			{
+				//XMLファイルから読み込み、逆シリアル化する
+				try
+				{
+					dataClass = (DataClass)serializer.ReadObject(xr);
+				}
+				catch (Exception)
+				{
+					return;
+				}
+			}
+
+			foreach (Axis item in Enum.GetValues(typeof(Axis)))
+			{
+				ChannelCommandCCnum channelCommandCCnum = dataClass.AxisData[item];
+				AxisChannelCombos[item].SelectedIndex = channelCommandCCnum.Channel;
+				AxisCommandCodeCombos[item].SelectedIndex = channelCommandCCnum.CommandCode;
+				AxisCCNumTextBoxs[item].Text = channelCommandCCnum.CCnum.ToString();
+			}
+		}
+
+		/// <summary>
+		/// データの保存
+		/// </summary>
 		private void SaveData()
 		{
 			Dictionary<Axis, ChannelCommandCCnum> axisData = new Dictionary<Axis, ChannelCommandCCnum>();
@@ -467,11 +512,11 @@ namespace MidiToJoy
 				TextBox CCNumText = AxisCCNumTextBoxs[item];
 
 				int channel = ChannelCombo.SelectedIndex;
-				string commandCodeName = ((ComboBoxItem)CommandCodeCombo.SelectedItem).Content.ToString();
+				int commandCode = CommandCodeCombo.SelectedIndex;
 				int CCnum = 0;
 				int.TryParse(CCNumText.Text, out CCnum);
 
-				ChannelCommandCCnum channelCommandCCnum = new ChannelCommandCCnum(channel, commandCodeName, CCnum);
+				ChannelCommandCCnum channelCommandCCnum = new ChannelCommandCCnum(channel, commandCode, CCnum);
 
 				axisData.Add(item, channelCommandCCnum);
 			}
