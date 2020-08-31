@@ -31,6 +31,14 @@ namespace MidiToJoy
 		/// </summary>
 		public string PitchBendString { get; } = "ピッチベンド";
 
+		/// <summary>
+		/// アナログ軸の最大値
+		/// </summary>
+		private long MaxAxisValue = 0;
+
+		const int CCMax = 127;
+		const int pitchBendMax = 16383;
+
 		static public vJoy joystick;
 		static public uint vjoyId = 1;
 		const string appName = "MidiToJoy";
@@ -77,6 +85,9 @@ namespace MidiToJoy
 			bool ret = joystick.ResetVJD(vjoyId);
 
 			Title = Title + " Device[1]:OK";
+
+			//アナログ軸の値の最大値取得
+			joystick.GetVJDAxisMax(vjoyId, HID_USAGES.HID_USAGE_X, ref MaxAxisValue);
 
 			for (int device = 0; device < MidiIn.NumberOfDevices; device++)
 			{
@@ -203,21 +214,21 @@ namespace MidiToJoy
 			}
 		}
 
-		delegate object GetComboItemDelegate(ComboBox comboBox);
+		delegate string GetComboItemDelegate(ComboBox comboBox);
 		/// <summary>
-		/// コンボボックスの選択中インデックスを取得します。
+		/// コンボボックスの選択中文字列を取得します。
 		/// </summary>
 		/// <param name="comboBox"></param>
 		/// <returns></returns>
-		private object GetComboItem(ComboBox comboBox)
+		private string GetComboItem(ComboBox comboBox)
 		{
 			if (comboBox.Dispatcher.CheckAccess())
 			{
-				return comboBox.SelectedItem;
+				return ((ComboBoxItem)comboBox.SelectedItem).Content.ToString();
 			}
 			else
 			{
-				return comboBox.Dispatcher.Invoke(new GetComboItemDelegate(GetComboItem), comboBox);
+				return (string)comboBox.Dispatcher.Invoke(new GetComboItemDelegate(GetComboItem), comboBox);
 			}
 		}
 
@@ -260,25 +271,28 @@ namespace MidiToJoy
 		private void midiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
 		{
 
-			if (e.MidiEvent.CommandCode == MidiCommandCode.PitchWheelChange && e.MidiEvent.Channel == 1)
+			//if (e.MidiEvent.CommandCode == MidiCommandCode.PitchWheelChange && e.MidiEvent.Channel == 1)
+			//{
+			//	int valu = 0;
+			//	byte LSB = (byte)(e.RawMessage >> 8);
+			//	byte MSB = (byte)(e.RawMessage >> 16);
+			//	valu = (MSB << 7) + LSB;
+
+			//	long Xmax = 0;
+			//	joystick.GetVJDAxisMax(vjoyId, HID_USAGES.HID_USAGE_X, ref Xmax);
+			//	long Xmin = 0;
+			//	joystick.GetVJDAxisMin(vjoyId, HID_USAGES.HID_USAGE_X, ref Xmin);
+
+			//	valu = (int)Map(valu, 0, 16129, (int)Xmin, (int)Xmax);
+			//	joystick.SetAxis(valu, vjoyId, HID_USAGES.HID_USAGE_X);
+			//}
+
+			foreach (Axis item in Enum.GetValues(typeof(Axis)))
 			{
-				int valu = 0;
-				byte LSB = (byte)(e.RawMessage >> 8);
-				byte MSB = (byte)(e.RawMessage >> 16);
-				valu = (MSB << 7) + LSB;
-
-				long Xmax = 0;
-				joystick.GetVJDAxisMax(vjoyId, HID_USAGES.HID_USAGE_X, ref Xmax);
-				long Xmin = 0;
-				joystick.GetVJDAxisMin(vjoyId, HID_USAGES.HID_USAGE_X, ref Xmin);
-
-				valu = (int)Map(valu, 0, 16129, (int)Xmin, (int)Xmax);
-				joystick.SetAxis(valu, vjoyId, HID_USAGES.HID_USAGE_X);
-			}
-
-			if (IsValidInput(Axis.XPlus, e))
-			{
-
+				if (IsValidInput(item, e))
+				{
+					SetVjoyAxis(item, e);
+				}
 			}
 		}
 
@@ -298,7 +312,7 @@ namespace MidiToJoy
 			{
 				return false;
 			}
-			string CommandCodeName = (string)GetComboItem(CommandCodeCombo);
+			string CommandCodeName = GetComboItem(CommandCodeCombo);
 			if (CommandCodeName == CCstring)
 			{
 				if (e.MidiEvent.CommandCode != MidiCommandCode.ControlChange)
@@ -330,7 +344,110 @@ namespace MidiToJoy
 		/// <param name="e"></param>
 		private void SetVjoyAxis(Axis axis, MidiInMessageEventArgs e)
 		{
+			int value = 0;
+			switch (axis)
+			{
+				case Axis.XPlus:
+				case Axis.YPlus:
+				case Axis.ZPlus:
+				case Axis.XRPlus:
+				case Axis.YRPlus:
+				case Axis.ZRPlus:
+				case Axis.SliderPlus:
+				case Axis.DialPlus:
+					switch (e.MidiEvent.CommandCode)
+					{
+						case MidiCommandCode.ControlChange:
+							byte ccValue = (byte)(e.RawMessage >> 16);
+							value = (int)Map(ccValue, 0, CCMax, MaxAxisValue / 2, MaxAxisValue);
+							break;
+						case MidiCommandCode.PitchWheelChange:
+							byte LSB = (byte)(e.RawMessage >> 8);
+							byte MSB = (byte)(e.RawMessage >> 16);
+							int pitchVal = (MSB << 7) + LSB;
+							value = (int)Map(pitchVal, 0, pitchBendMax, MaxAxisValue / 2, MaxAxisValue);
+							break;
+						default:
+							break;
+					}
+					break;
+				case Axis.XMinus:
+				case Axis.YMinus:
+				case Axis.ZMinus:
+				case Axis.XRMinus:
+				case Axis.YRMinus:
+				case Axis.ZRMinus:
+				case Axis.SliderMinus:
+				case Axis.DialMinus:
+					switch (e.MidiEvent.CommandCode)
+					{
+						case MidiCommandCode.ControlChange:
+							byte ccValue = (byte)(e.RawMessage >> 16);
+							value = (int)Map(ccValue, 0, CCMax, 0, MaxAxisValue / 2);
+							break;
+						case MidiCommandCode.PitchWheelChange:
+							byte LSB = (byte)(e.RawMessage >> 8);
+							byte MSB = (byte)(e.RawMessage >> 16);
+							int pitchVal = (MSB << 7) + LSB;
+							value = (int)Map(pitchVal, 0, pitchBendMax, 0, MaxAxisValue / 2);
+							break;
+						default:
+							break;
+					}
+					//マイナス側は、入力したぶん中央値から小さくなる。
+					value = (int)MaxAxisValue / 2 - value;
+					break;
+				default:
+					break;
+			}
 
+			SetVjoyAxis(axis, value);
+		}
+
+		/// <summary>
+		/// 実際に値を設定します。
+		/// </summary>
+		/// <param name="axis"></param>
+		/// <param name="value"></param>
+		private void SetVjoyAxis(Axis axis, int value)
+		{
+			switch (axis)
+			{
+				case Axis.XPlus:
+				case Axis.XMinus:
+					joystick.SetAxis(value, vjoyId, HID_USAGES.HID_USAGE_X);
+					break;
+				case Axis.YPlus:
+				case Axis.YMinus:
+					joystick.SetAxis(value, vjoyId, HID_USAGES.HID_USAGE_Y);
+					break;
+				case Axis.ZPlus:
+				case Axis.ZMinus:
+					joystick.SetAxis(value, vjoyId, HID_USAGES.HID_USAGE_Z);
+					break;
+				case Axis.XRPlus:
+				case Axis.XRMinus:
+					joystick.SetAxis(value, vjoyId, HID_USAGES.HID_USAGE_RX);
+					break;
+				case Axis.YRPlus:
+				case Axis.YRMinus:
+					joystick.SetAxis(value, vjoyId, HID_USAGES.HID_USAGE_RY);
+					break;
+				case Axis.ZRPlus:
+				case Axis.ZRMinus:
+					joystick.SetAxis(value, vjoyId, HID_USAGES.HID_USAGE_RZ);
+					break;
+				case Axis.SliderPlus:
+				case Axis.SliderMinus:
+					joystick.SetAxis(value, vjoyId, HID_USAGES.HID_USAGE_SL0);
+					break;
+				case Axis.DialPlus:
+				case Axis.DialMinus:
+					joystick.SetAxis(value, vjoyId, HID_USAGES.HID_USAGE_SL1);
+					break;
+				default:
+					break;
+			}
 		}
 
 		/// <summary>
