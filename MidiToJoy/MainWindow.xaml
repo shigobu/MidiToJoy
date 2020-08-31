@@ -39,8 +39,8 @@
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
 						<ComboBox Width="80" x:Name="XPlusCommandCodeCombo" SelectedIndex="0" Margin="3">
-							<ComboBoxItem>CC</ComboBoxItem>
-							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+							<ComboBoxItem Content="{Binding CCstring}"/>
+							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="XPlusCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="XPlusSettingButton">設定</Button>
@@ -66,8 +66,8 @@
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
 						<ComboBox Width="80" x:Name="XMinusCommandCodeCombo" SelectedIndex="0" Margin="3">
-							<ComboBoxItem>CC</ComboBoxItem>
-							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+							<ComboBoxItem Content="{Binding CCstring}"/>
+							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="XMinusCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="XMinusSettingButton">設定</Button>
@@ -93,8 +93,8 @@
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
 						<ComboBox Width="80" x:Name="YPlusCommandCodeCombo" SelectedIndex="0" Margin="3">
-							<ComboBoxItem>CC</ComboBoxItem>
-							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+							<ComboBoxItem Content="{Binding CCstring}"/>
+							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="YPlusCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="YPlusSettingButton">設定</Button>
@@ -120,8 +120,8 @@
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
 						<ComboBox Width="80" x:Name="YMinusCommandCodeCombo" SelectedIndex="0" Margin="3">
-							<ComboBoxItem>CC</ComboBoxItem>
-							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+							<ComboBoxItem Content="{Binding CCstring}"/>
+							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="YMinusCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="YMinusSettingButton">設定</Button>
@@ -147,8 +147,8 @@
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
 						<ComboBox Width="80" x:Name="ZPlusCommandCodeCombo" SelectedIndex="0" Margin="3">
-							<ComboBoxItem>CC</ComboBoxItem>
-							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+							<ComboBoxItem Content="{Binding CCstring}"/>
+							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="ZPlusCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="ZPlusSettingButton">設定</Button>
@@ -174,8 +174,8 @@
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
 						<ComboBox Width="80" x:Name="ZMinusCommandCodeCombo" SelectedIndex="0" Margin="3">
-							<ComboBoxItem>CC</ComboBoxItem>
-							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+							<ComboBoxItem Content="{Binding CCstring}"/>
+							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="ZMinusCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="ZMinusSettingButton">設定</Button>
@@ -201,8 +201,8 @@
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
 						<ComboBox Width="80" x:Name="XRPlusCommandCodeCombo" SelectedIndex="0" Margin="3">
-							<ComboBoxItem>CC</ComboBoxItem>
-							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+							<ComboBoxItem Content="{Binding CCstring}"/>
+							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="XRPlusCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="XRPlusSettingButton">設定</Button>
@@ -228,8 +228,8 @@
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
 						<ComboBox Width="80" x:Name="XRMinusCommandCodeCombo" SelectedIndex="0" Margin="3">
-							<ComboBoxItem>CC</ComboBoxItem>
-							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+							<ComboBoxItem Content="{Binding CCstring}"/>
+							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="XRMinusCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="XRMinusSettingButton">設定</Button>
@@ -255,8 +255,8 @@
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
 						<ComboBox Width="80" x:Name="YRPlusCommandCodeCombo" SelectedIndex="0" Margin="3">
-							<ComboBoxItem>CC</ComboBoxItem>
-							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+							<ComboBoxItem Content="{Binding CCstring}"/>
+							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="YRPlusCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="YRPlusSettingButton">設定</Button>
@@ -282,8 +282,8 @@
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
 						<ComboBox Width="80" x:Name="YRMinusCommandCodeCombo" SelectedIndex="0" Margin="3">
-							<ComboBoxItem>CC</ComboBoxItem>
-							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+							<ComboBoxItem Content="{Binding CCstring}"/>
+							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="YRMinusCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="YRMinusSettingButton">設定</Button>
@@ -309,8 +309,8 @@
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
 						<ComboBox Width="80" x:Name="ZRPlusCommandCodeCombo" SelectedIndex="0" Margin="3">
-							<ComboBoxItem>CC</ComboBoxItem>
-							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+							<ComboBoxItem Content="{Binding CCstring}"/>
+							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="ZRPlusCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="ZRPlusSettingButton">設定</Button>
@@ -336,8 +336,8 @@
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
 						<ComboBox Width="80" x:Name="ZRMinusCommandCodeCombo" SelectedIndex="0" Margin="3">
-							<ComboBoxItem>CC</ComboBoxItem>
-							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+							<ComboBoxItem Content="{Binding CCstring}"/>
+							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="ZRMinusCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="ZRMinusSettingButton">設定</Button>
@@ -363,8 +363,8 @@
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
 						<ComboBox Width="80" x:Name="SliderPlusCommandCodeCombo" SelectedIndex="0" Margin="3">
-							<ComboBoxItem>CC</ComboBoxItem>
-							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+							<ComboBoxItem Content="{Binding CCstring}"/>
+							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="SliderPlusCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="SliderPlusSettingButton">設定</Button>
@@ -390,8 +390,8 @@
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
 						<ComboBox Width="80" x:Name="SliderMinusCommandCodeCombo" SelectedIndex="0" Margin="3">
-							<ComboBoxItem>CC</ComboBoxItem>
-							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+							<ComboBoxItem Content="{Binding CCstring}"/>
+							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="SliderMinusCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="SliderMinusSettingButton">設定</Button>
@@ -417,8 +417,8 @@
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
 						<ComboBox Width="80" x:Name="DialPlusCommandCodeCombo" SelectedIndex="0" Margin="3">
-							<ComboBoxItem>CC</ComboBoxItem>
-							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+							<ComboBoxItem Content="{Binding CCstring}"/>
+							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="DialPlusCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="DialPlusSettingButton">設定</Button>
@@ -444,8 +444,8 @@
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
 						<ComboBox Width="80" x:Name="DialMinusCommandCodeCombo" SelectedIndex="0" Margin="3">
-							<ComboBoxItem>CC</ComboBoxItem>
-							<ComboBoxItem>ピッチベンド</ComboBoxItem>
+							<ComboBoxItem Content="{Binding CCstring}"/>
+							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="DialMinusCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="DialMinusSettingButton">設定</Button>

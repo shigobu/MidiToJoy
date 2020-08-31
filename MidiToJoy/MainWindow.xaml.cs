@@ -22,15 +22,37 @@ namespace MidiToJoy
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		/// <summary>
+		/// 「CC」を返します。
+		/// </summary>
+		public string CCstring { get; } = "CC";
+		/// <summary>
+		/// 「ピッチベンド」を返します。
+		/// </summary>
+		public string PitchBendString { get; } = "ピッチベンド";
+
 		static public vJoy joystick;
 		static public uint vjoyId = 1;
 		const string appName = "MidiToJoy";
 		MidiIn MidiIn = null;
+		/// <summary>
+		/// チェンネルコンボの一覧アナログ軸
+		/// </summary>
+		Dictionary<Axis, ComboBox> AxisChannelCombos { get; set; }
+		/// <summary>
+		/// 種類コンボの一覧アナログ軸
+		/// </summary>
+		Dictionary<Axis, ComboBox> AxisCommandCodeCombos { get; set; }
+		/// <summary>
+		/// CCナンバーテキストボックス
+		/// </summary>
+		Dictionary<Axis, TextBox> AxisCCNumTextBoxs { get; set; }
 
 		public MainWindow()
 		{
 			InitializeComponent();
 			joystick = new vJoy();
+			DataContext = this;
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -64,6 +86,66 @@ namespace MidiToJoy
 			{
 				comboBoxMidiInDevices.SelectedIndex = 0;
 			}
+
+			//コントロールをディクショナリに格納
+			AxisChannelCombos = new Dictionary<Axis, ComboBox>()
+			{
+				{Axis.XPlus, XPlusChannelCombo },
+				{Axis.XMinus, XMinusChannelCombo },
+				{Axis.YPlus, YPlusChannelCombo },
+				{Axis.YMinus, YMinusChannelCombo },
+				{Axis.ZPlus, ZPlusChannelCombo },
+				{Axis.ZMinus, ZMinusChannelCombo },
+				{Axis.XRPlus, XRPlusChannelCombo },
+				{Axis.XRMinus, XRMinusChannelCombo },
+				{Axis.YRPlus, YRPlusChannelCombo },
+				{Axis.YRMinus, YRMinusChannelCombo },
+				{Axis.ZRPlus, ZRPlusChannelCombo },
+				{Axis.ZRMinus, ZRMinusChannelCombo },
+				{Axis.SliderPlus, SliderPlusChannelCombo },
+				{Axis.SliderMinus, SliderMinusChannelCombo },
+				{Axis.DialPlus, DialPlusChannelCombo },
+				{Axis.DialMinus, DialMinusChannelCombo }
+			};
+			AxisCommandCodeCombos = new Dictionary<Axis, ComboBox>()
+			{
+				{Axis.XPlus, XPlusCommandCodeCombo },
+				{Axis.XMinus, XMinusCommandCodeCombo },
+				{Axis.YPlus, YPlusCommandCodeCombo },
+				{Axis.YMinus, YMinusCommandCodeCombo },
+				{Axis.ZPlus, ZPlusCommandCodeCombo },
+				{Axis.ZMinus, ZMinusCommandCodeCombo },
+				{Axis.XRPlus, XRPlusCommandCodeCombo },
+				{Axis.XRMinus, XRMinusCommandCodeCombo },
+				{Axis.YRPlus, YRPlusCommandCodeCombo },
+				{Axis.YRMinus, YRMinusCommandCodeCombo },
+				{Axis.ZRPlus, ZRPlusCommandCodeCombo },
+				{Axis.ZRMinus, ZRMinusCommandCodeCombo },
+				{Axis.SliderPlus, SliderPlusCommandCodeCombo },
+				{Axis.SliderMinus, SliderMinusCommandCodeCombo },
+				{Axis.DialPlus, DialPlusCommandCodeCombo },
+				{Axis.DialMinus, DialMinusCommandCodeCombo }
+			};
+			AxisCCNumTextBoxs = new Dictionary<Axis, TextBox>()
+			{
+				{Axis.XPlus, XPlusCCNumTextBox },
+				{Axis.XMinus, XMinusCCNumTextBox },
+				{Axis.YPlus, YPlusCCNumTextBox },
+				{Axis.YMinus, YMinusCCNumTextBox },
+				{Axis.ZPlus, ZPlusCCNumTextBox },
+				{Axis.ZMinus, ZMinusCCNumTextBox },
+				{Axis.XRPlus, XRPlusCCNumTextBox },
+				{Axis.XRMinus, XRMinusCCNumTextBox },
+				{Axis.YRPlus, YRPlusCCNumTextBox },
+				{Axis.YRMinus, YRMinusCCNumTextBox },
+				{Axis.ZRPlus, ZRPlusCCNumTextBox },
+				{Axis.ZRMinus, ZRMinusCCNumTextBox },
+				{Axis.SliderPlus, SliderPlusCCNumTextBox },
+				{Axis.SliderMinus, SliderMinusCCNumTextBox },
+				{Axis.DialPlus, DialPlusCCNumTextBox },
+				{Axis.DialMinus, DialMinusCCNumTextBox }
+			};
+
 		}
 
 		private void ChangedCB(bool Removed, bool First, object userData)
@@ -102,6 +184,61 @@ namespace MidiToJoy
 			}
 		}
 
+
+		delegate int GetComboIndexDelegate(ComboBox comboBox);
+		/// <summary>
+		/// コンボボックスの選択中インデックスを取得します。
+		/// </summary>
+		/// <param name="comboBox"></param>
+		/// <returns></returns>
+		private int GetComboIndex(ComboBox comboBox)
+		{
+			if (comboBox.Dispatcher.CheckAccess())
+			{
+				return comboBox.SelectedIndex;
+			}
+			else
+			{
+				 return (int)comboBox.Dispatcher.Invoke(new GetComboIndexDelegate(GetComboIndex), comboBox);
+			}
+		}
+
+		delegate object GetComboItemDelegate(ComboBox comboBox);
+		/// <summary>
+		/// コンボボックスの選択中インデックスを取得します。
+		/// </summary>
+		/// <param name="comboBox"></param>
+		/// <returns></returns>
+		private object GetComboItem(ComboBox comboBox)
+		{
+			if (comboBox.Dispatcher.CheckAccess())
+			{
+				return comboBox.SelectedItem;
+			}
+			else
+			{
+				return comboBox.Dispatcher.Invoke(new GetComboItemDelegate(GetComboItem), comboBox);
+			}
+		}
+
+		delegate string GetTextBoxTextDelegate(TextBox textBox);
+		/// <summary>
+		/// テキストボックスのテキストを取得します。
+		/// </summary>
+		/// <param name="comboBox"></param>
+		/// <returns></returns>
+		private string GetTextBoxText(TextBox textBox)
+		{
+			if (textBox.Dispatcher.CheckAccess())
+			{
+				return textBox.Text;
+			}
+			else
+			{
+				return (string)textBox.Dispatcher.Invoke(new GetTextBoxTextDelegate(GetTextBoxText), textBox);
+			}
+		}
+
 		private void ComboBoxMidiInDevices_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if (MidiIn != null)
@@ -122,6 +259,7 @@ namespace MidiToJoy
 
 		private void midiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
 		{
+
 			if (e.MidiEvent.CommandCode == MidiCommandCode.PitchWheelChange && e.MidiEvent.Channel == 1)
 			{
 				int valu = 0;
@@ -136,8 +274,63 @@ namespace MidiToJoy
 
 				valu = (int)Map(valu, 0, 16129, (int)Xmin, (int)Xmax);
 				joystick.SetAxis(valu, vjoyId, HID_USAGES.HID_USAGE_X);
+			}
+
+			if (IsValidInput(Axis.XPlus, e))
+			{
 
 			}
+		}
+
+		/// <summary>
+		/// 指定のmidi入力であるかどうかをかえします。
+		/// </summary>
+		/// <param name="axis"></param>
+		/// <param name="e"></param>
+		/// <returns></returns>
+		private bool IsValidInput(Axis axis, MidiInMessageEventArgs e)
+		{
+			ComboBox ChannelCombo = AxisChannelCombos[axis];
+			ComboBox CommandCodeCombo = AxisCommandCodeCombos[axis];
+			TextBox CCNumText = AxisCCNumTextBoxs[axis];
+			int channel = GetComboIndex(ChannelCombo) + 1;
+			if (e.MidiEvent.Channel != channel)
+			{
+				return false;
+			}
+			string CommandCodeName = (string)GetComboItem(CommandCodeCombo);
+			if (CommandCodeName == CCstring)
+			{
+				if (e.MidiEvent.CommandCode != MidiCommandCode.ControlChange)
+				{
+					return false;
+				}
+				byte midiCCNum = (byte)((e.RawMessage >> 8) & 0b11111111);
+				int temp = 0;
+				int.TryParse(GetTextBoxText(CCNumText), out temp);
+				if (midiCCNum != temp)
+				{
+					return false;
+				}
+			}
+			if (CommandCodeName == PitchBendString)
+			{
+				if (e.MidiEvent.CommandCode != MidiCommandCode.PitchWheelChange)
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+
+		/// <summary>
+		/// 指定のアナログ軸にMIDI情報を設定します。
+		/// </summary>
+		/// <param name="axis"></param>
+		/// <param name="e"></param>
+		private void SetVjoyAxis(Axis axis, MidiInMessageEventArgs e)
+		{
+
 		}
 
 		/// <summary>
@@ -162,5 +355,28 @@ namespace MidiToJoy
 				MidiIn.Dispose();
 			}
 		}
+	}
+
+	/// <summary>
+	/// アナログ軸
+	/// </summary>
+	enum Axis
+	{
+		XPlus,
+		XMinus,
+		YPlus,
+		YMinus,
+		ZPlus,
+		ZMinus,
+		XRPlus,
+		XRMinus,
+		YRPlus,
+		YRMinus,
+		ZRPlus,
+		ZRMinus,
+		SliderPlus,
+		SliderMinus,
+		DialPlus,
+		DialMinus
 	}
 }
