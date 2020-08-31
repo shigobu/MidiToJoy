@@ -270,23 +270,6 @@ namespace MidiToJoy
 
 		private void midiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
 		{
-
-			//if (e.MidiEvent.CommandCode == MidiCommandCode.PitchWheelChange && e.MidiEvent.Channel == 1)
-			//{
-			//	int valu = 0;
-			//	byte LSB = (byte)(e.RawMessage >> 8);
-			//	byte MSB = (byte)(e.RawMessage >> 16);
-			//	valu = (MSB << 7) + LSB;
-
-			//	long Xmax = 0;
-			//	joystick.GetVJDAxisMax(vjoyId, HID_USAGES.HID_USAGE_X, ref Xmax);
-			//	long Xmin = 0;
-			//	joystick.GetVJDAxisMin(vjoyId, HID_USAGES.HID_USAGE_X, ref Xmin);
-
-			//	valu = (int)Map(valu, 0, 16129, (int)Xmin, (int)Xmax);
-			//	joystick.SetAxis(valu, vjoyId, HID_USAGES.HID_USAGE_X);
-			//}
-
 			foreach (Axis item in Enum.GetValues(typeof(Axis)))
 			{
 				if (IsValidInput(item, e))
@@ -327,12 +310,16 @@ namespace MidiToJoy
 					return false;
 				}
 			}
-			if (CommandCodeName == PitchBendString)
+			else if (CommandCodeName == PitchBendString)
 			{
 				if (e.MidiEvent.CommandCode != MidiCommandCode.PitchWheelChange)
 				{
 					return false;
 				}
+			}
+			else
+			{
+				return false;
 			}
 			return true;
 		}
