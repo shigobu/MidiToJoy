@@ -9,6 +9,11 @@ namespace MidiToJoy
 	[Serializable]
 	public class DataClass
 	{
+		/// <summary>
+		/// 選択中のMIDIデバイス
+		/// </summary>
+		public string SelectedMIDIDeviceName { get; set; } = "";
+
 		public Dictionary<Axis, ChannelCommandCCnum> AxisData { get; set; }
 	}
 }

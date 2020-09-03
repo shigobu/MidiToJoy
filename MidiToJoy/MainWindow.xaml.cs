@@ -490,6 +490,10 @@ namespace MidiToJoy
 				}
 			}
 
+			//MIDIデバイス設定
+			comboBoxMidiInDevices.SelectedItem = dataClass.SelectedMIDIDeviceName;
+
+			//アナログ軸
 			foreach (Axis item in Enum.GetValues(typeof(Axis)))
 			{
 				ChannelCommandCCnum channelCommandCCnum = dataClass.AxisData[item];
@@ -504,6 +508,12 @@ namespace MidiToJoy
 		/// </summary>
 		private void SaveData()
 		{
+			DataClass dataClass = new DataClass();
+
+			//midiデバイス名の保存
+			dataClass.SelectedMIDIDeviceName = comboBoxMidiInDevices.SelectedItem.ToString();
+
+			//アナログ軸設定の保存
 			Dictionary<Axis, ChannelCommandCCnum> axisData = new Dictionary<Axis, ChannelCommandCCnum>();
 			foreach (Axis item in Enum.GetValues(typeof(Axis)))
 			{
@@ -520,10 +530,7 @@ namespace MidiToJoy
 
 				axisData.Add(item, channelCommandCCnum);
 			}
-			DataClass dataClass = new DataClass()
-			{
-				AxisData = axisData
-			};
+			dataClass.AxisData = axisData;
 
 			// シリアライズ先のファイル
 			Assembly myAssembly = Assembly.GetEntryAssembly();

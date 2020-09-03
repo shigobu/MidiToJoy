@@ -8,7 +8,7 @@
         Title="MidiToJoy" Loaded="Window_Loaded" SizeToContent="WidthAndHeight" Closed="Window_Closed" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 	<StackPanel Margin="5">
 		<TextBlock Margin="3" TextAlignment="Left">MIDI入力デバイス</TextBlock>
-		<ComboBox x:Name="comboBoxMidiInDevices" Margin="3" SelectionChanged="ComboBoxMidiInDevices_SelectionChanged"/>
+		<ComboBox x:Name="comboBoxMidiInDevices" Margin="3" SelectedValuePath="Content" SelectionChanged="ComboBoxMidiInDevices_SelectionChanged"/>
 		<TabControl Margin="3" Width="350" Height="500">
 			<TabItem Header="アナログ">
 				<StackPanel>
