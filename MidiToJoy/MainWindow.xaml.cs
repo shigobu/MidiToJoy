@@ -30,11 +30,11 @@ namespace MidiToJoy
 		/// <summary>
 		/// 「CC」を返します。
 		/// </summary>
-		public string CCstring { get; } = "CC";
+		public static string CCstring { get; } = "CC";
 		/// <summary>
 		/// 「ピッチベンド」を返します。
 		/// </summary>
-		public string PitchBendString { get; } = "ピッチベンド";
+		public static string PitchBendString { get; } = "ピッチベンド";
 
 		/// <summary>
 		/// アナログ軸の最大値
@@ -110,79 +110,47 @@ namespace MidiToJoy
 			//コントロールをディクショナリに格納
 			AxisChannelCombos = new Dictionary<Axis, ComboBox>()
 			{
-				{Axis.XPlus, XPlusChannelCombo },
-				{Axis.XMinus, XMinusChannelCombo },
-				{Axis.YPlus, YPlusChannelCombo },
-				{Axis.YMinus, YMinusChannelCombo },
-				{Axis.ZPlus, ZPlusChannelCombo },
-				{Axis.ZMinus, ZMinusChannelCombo },
-				{Axis.XRPlus, XRPlusChannelCombo },
-				{Axis.XRMinus, XRMinusChannelCombo },
-				{Axis.YRPlus, YRPlusChannelCombo },
-				{Axis.YRMinus, YRMinusChannelCombo },
-				{Axis.ZRPlus, ZRPlusChannelCombo },
-				{Axis.ZRMinus, ZRMinusChannelCombo },
-				{Axis.SliderPlus, SliderPlusChannelCombo },
-				{Axis.SliderMinus, SliderMinusChannelCombo },
-				{Axis.DialPlus, DialPlusChannelCombo },
-				{Axis.DialMinus, DialMinusChannelCombo }
+				{Axis.X, XChannelCombo },
+				{Axis.Y, YChannelCombo },
+				{Axis.Z, ZChannelCombo },
+				{Axis.XR, XRChannelCombo },
+				{Axis.YR, YRChannelCombo },
+				{Axis.ZR, ZRChannelCombo },
+				{Axis.Slider, SliderChannelCombo },
+				{Axis.Dial, DialChannelCombo },
 			};
 			AxisCommandCodeCombos = new Dictionary<Axis, ComboBox>()
 			{
-				{Axis.XPlus, XPlusCommandCodeCombo },
-				{Axis.XMinus, XMinusCommandCodeCombo },
-				{Axis.YPlus, YPlusCommandCodeCombo },
-				{Axis.YMinus, YMinusCommandCodeCombo },
-				{Axis.ZPlus, ZPlusCommandCodeCombo },
-				{Axis.ZMinus, ZMinusCommandCodeCombo },
-				{Axis.XRPlus, XRPlusCommandCodeCombo },
-				{Axis.XRMinus, XRMinusCommandCodeCombo },
-				{Axis.YRPlus, YRPlusCommandCodeCombo },
-				{Axis.YRMinus, YRMinusCommandCodeCombo },
-				{Axis.ZRPlus, ZRPlusCommandCodeCombo },
-				{Axis.ZRMinus, ZRMinusCommandCodeCombo },
-				{Axis.SliderPlus, SliderPlusCommandCodeCombo },
-				{Axis.SliderMinus, SliderMinusCommandCodeCombo },
-				{Axis.DialPlus, DialPlusCommandCodeCombo },
-				{Axis.DialMinus, DialMinusCommandCodeCombo }
+				{Axis.X, XCommandCodeCombo },
+				{Axis.Y, YCommandCodeCombo },
+				{Axis.Z, ZCommandCodeCombo },
+				{Axis.XR, XRCommandCodeCombo },
+				{Axis.YR, YRCommandCodeCombo },
+				{Axis.ZR, ZRCommandCodeCombo },
+				{Axis.Slider, SliderCommandCodeCombo },
+				{Axis.Dial, DialCommandCodeCombo },
 			};
 			AxisCCNumTextBoxs = new Dictionary<Axis, TextBox>()
 			{
-				{Axis.XPlus, XPlusCCNumTextBox },
-				{Axis.XMinus, XMinusCCNumTextBox },
-				{Axis.YPlus, YPlusCCNumTextBox },
-				{Axis.YMinus, YMinusCCNumTextBox },
-				{Axis.ZPlus, ZPlusCCNumTextBox },
-				{Axis.ZMinus, ZMinusCCNumTextBox },
-				{Axis.XRPlus, XRPlusCCNumTextBox },
-				{Axis.XRMinus, XRMinusCCNumTextBox },
-				{Axis.YRPlus, YRPlusCCNumTextBox },
-				{Axis.YRMinus, YRMinusCCNumTextBox },
-				{Axis.ZRPlus, ZRPlusCCNumTextBox },
-				{Axis.ZRMinus, ZRMinusCCNumTextBox },
-				{Axis.SliderPlus, SliderPlusCCNumTextBox },
-				{Axis.SliderMinus, SliderMinusCCNumTextBox },
-				{Axis.DialPlus, DialPlusCCNumTextBox },
-				{Axis.DialMinus, DialMinusCCNumTextBox }
+				{Axis.X, XCCNumTextBox },
+				{Axis.Y, YCCNumTextBox },
+				{Axis.Z, ZCCNumTextBox },
+				{Axis.XR, XRCCNumTextBox },
+				{Axis.YR, YRCCNumTextBox },
+				{Axis.ZR, ZRCCNumTextBox },
+				{Axis.Slider, SliderCCNumTextBox },
+				{Axis.Dial, DialCCNumTextBox },
 			};
 			AxisSettingButtons = new Dictionary<Axis, Button>()
 			{
-				{Axis.XPlus, XPlusSettingButton },
-				{Axis.XMinus, XMinusSettingButton },
-				{Axis.YPlus, YPlusSettingButton },
-				{Axis.YMinus, YMinusSettingButton },
-				{Axis.ZPlus, ZPlusSettingButton },
-				{Axis.ZMinus, ZMinusSettingButton },
-				{Axis.XRPlus, XRPlusSettingButton },
-				{Axis.XRMinus, XRMinusSettingButton },
-				{Axis.YRPlus, YRPlusSettingButton },
-				{Axis.YRMinus, YRMinusSettingButton },
-				{Axis.ZRPlus, ZRPlusSettingButton },
-				{Axis.ZRMinus, ZRMinusSettingButton },
-				{Axis.SliderPlus, SliderPlusSettingButton },
-				{Axis.SliderMinus, SliderMinusSettingButton },
-				{Axis.DialPlus, DialPlusSettingButton },
-				{Axis.DialMinus, DialMinusSettingButton }
+				{Axis.X, XSettingButton },
+				{Axis.Y, YSettingButton },
+				{Axis.Z, ZSettingButton },
+				{Axis.XR, XRSettingButton },
+				{Axis.YR, YRSettingButton },
+				{Axis.ZR, ZRSettingButton },
+				{Axis.Slider, SliderSettingButton },
+				{Axis.Dial, DialSettingButton },
 			};
 
 			LoadData();
@@ -297,6 +265,11 @@ namespace MidiToJoy
 		{
 		}
 
+		/// <summary>
+		/// MIDIメッセージ受信したときのイベント
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void midiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
 		{
 			foreach (Axis item in Enum.GetValues(typeof(Axis)))
@@ -361,109 +334,52 @@ namespace MidiToJoy
 		private void SetVjoyAxis(Axis axis, MidiInMessageEventArgs e)
 		{
 			int value = 0;
-			switch (axis)
+			switch (e.MidiEvent.CommandCode)
 			{
-				case Axis.XPlus:
-				case Axis.YPlus:
-				case Axis.ZPlus:
-				case Axis.XRPlus:
-				case Axis.YRPlus:
-				case Axis.ZRPlus:
-				case Axis.SliderPlus:
-				case Axis.DialPlus:
-					switch (e.MidiEvent.CommandCode)
-					{
-						case MidiCommandCode.ControlChange:
-							byte ccValue = (byte)(e.RawMessage >> 16);
-							value = (int)Map(ccValue, 0, CCMax, MaxAxisValue / 2, MaxAxisValue);
-							break;
-						case MidiCommandCode.PitchWheelChange:
-							byte LSB = (byte)(e.RawMessage >> 8);
-							byte MSB = (byte)(e.RawMessage >> 16);
-							int pitchVal = (MSB << 7) + LSB;
-							value = (int)Map(pitchVal, 0, pitchBendMax, MaxAxisValue / 2, MaxAxisValue);
-							break;
-						default:
-							break;
-					}
+				case MidiCommandCode.ControlChange:
+					byte ccValue = (byte)(e.RawMessage >> 16);
+					value = (int)Map(ccValue, 0, CCMax, 0, MaxAxisValue);
 					break;
-				case Axis.XMinus:
-				case Axis.YMinus:
-				case Axis.ZMinus:
-				case Axis.XRMinus:
-				case Axis.YRMinus:
-				case Axis.ZRMinus:
-				case Axis.SliderMinus:
-				case Axis.DialMinus:
-					switch (e.MidiEvent.CommandCode)
-					{
-						case MidiCommandCode.ControlChange:
-							byte ccValue = (byte)(e.RawMessage >> 16);
-							value = (int)Map(ccValue, 0, CCMax, 0, MaxAxisValue / 2);
-							break;
-						case MidiCommandCode.PitchWheelChange:
-							byte LSB = (byte)(e.RawMessage >> 8);
-							byte MSB = (byte)(e.RawMessage >> 16);
-							int pitchVal = (MSB << 7) + LSB;
-							value = (int)Map(pitchVal, 0, pitchBendMax, 0, MaxAxisValue / 2);
-							break;
-						default:
-							break;
-					}
-					//マイナス側は、入力したぶん中央値から小さくなる。
-					value = (int)MaxAxisValue / 2 - value;
+				case MidiCommandCode.PitchWheelChange:
+					byte LSB = (byte)(e.RawMessage >> 8);
+					byte MSB = (byte)(e.RawMessage >> 16);
+					int pitchVal = (MSB << 7) + LSB;
+					value = (int)Map(pitchVal, 0, pitchBendMax, 0, MaxAxisValue);
 					break;
 				default:
 					break;
 			}
 
-			SetVjoyAxis(axis, value);
-		}
-
-		/// <summary>
-		/// 実際に値を設定します。
-		/// </summary>
-		/// <param name="axis"></param>
-		/// <param name="value"></param>
-		private void SetVjoyAxis(Axis axis, int value)
-		{
 			switch (axis)
 			{
-				case Axis.XPlus:
-				case Axis.XMinus:
+				case Axis.X:
 					joystick.SetAxis(value, vjoyId, HID_USAGES.HID_USAGE_X);
 					break;
-				case Axis.YPlus:
-				case Axis.YMinus:
+				case Axis.Y:
 					joystick.SetAxis(value, vjoyId, HID_USAGES.HID_USAGE_Y);
 					break;
-				case Axis.ZPlus:
-				case Axis.ZMinus:
+				case Axis.Z:
 					joystick.SetAxis(value, vjoyId, HID_USAGES.HID_USAGE_Z);
 					break;
-				case Axis.XRPlus:
-				case Axis.XRMinus:
+				case Axis.XR:
 					joystick.SetAxis(value, vjoyId, HID_USAGES.HID_USAGE_RX);
 					break;
-				case Axis.YRPlus:
-				case Axis.YRMinus:
+				case Axis.YR:
 					joystick.SetAxis(value, vjoyId, HID_USAGES.HID_USAGE_RY);
 					break;
-				case Axis.ZRPlus:
-				case Axis.ZRMinus:
+				case Axis.ZR:
 					joystick.SetAxis(value, vjoyId, HID_USAGES.HID_USAGE_RZ);
 					break;
-				case Axis.SliderPlus:
-				case Axis.SliderMinus:
+				case Axis.Slider:
 					joystick.SetAxis(value, vjoyId, HID_USAGES.HID_USAGE_SL0);
 					break;
-				case Axis.DialPlus:
-				case Axis.DialMinus:
+				case Axis.Dial:
 					joystick.SetAxis(value, vjoyId, HID_USAGES.HID_USAGE_SL1);
 					break;
 				default:
 					break;
 			}
+
 		}
 
 		/// <summary>
@@ -590,19 +506,48 @@ namespace MidiToJoy
 		/// </summary>
 		private void SettingButton_Click(object sender, RoutedEventArgs e)
 		{
-			Axis axis;
-			//どの軸のボタンが押されたか検索
-			foreach (var item in AxisSettingButtons)
+			MIDISetWindow setWindow = null;
+			try
 			{
-				if (ReferenceEquals(item.Value, sender))
-				{
-					axis = item.Key;
-				}
-			}
+				//midiイベントを一旦削除
+				MidiIn.MessageReceived -= midiIn_MessageReceived;
 
-			//設定画面表示
-			MIDISetWindow setWindow = new MIDISetWindow() { Owner = this };
-			setWindow.ShowDialog();
+				Axis axis = Axis.X;
+				//どの軸のボタンが押されたか検索
+				foreach (var item in AxisSettingButtons)
+				{
+					if (ReferenceEquals(item.Value, sender))
+					{
+						axis = item.Key;
+					}
+				}
+
+				//設定画面表示
+				setWindow = new MIDISetWindow();
+				setWindow.Owner = this;
+				MidiIn.MessageReceived += setWindow.MidiIn_MessageReceived;
+
+				bool dialogResult = setWindow.ShowDialog() ?? false;
+				if (dialogResult == false)
+				{
+					return;
+				}
+
+				AxisChannelCombos[axis].SelectedIndex = setWindow.Channel;
+				AxisCommandCodeCombos[axis].SelectedValue = setWindow.CommandCodeName;
+				AxisCCNumTextBoxs[axis].Text = setWindow.CCNum.ToString();
+				
+			}
+			finally
+			{
+				if (setWindow != null)
+				{
+					MidiIn.MessageReceived -= setWindow.MidiIn_MessageReceived;
+				}
+
+				//midiインベント
+				MidiIn.MessageReceived += midiIn_MessageReceived;
+			}
 		}
 	}
 
@@ -612,21 +557,13 @@ namespace MidiToJoy
 	[Serializable]
 	public enum Axis
 	{
-		XPlus,
-		XMinus,
-		YPlus,
-		YMinus,
-		ZPlus,
-		ZMinus,
-		XRPlus,
-		XRMinus,
-		YRPlus,
-		YRMinus,
-		ZRPlus,
-		ZRMinus,
-		SliderPlus,
-		SliderMinus,
-		DialPlus,
-		DialMinus
+		X,
+		Y,
+		Z,
+		XR,
+		YR,
+		ZR,
+		Slider,
+		Dial,
 	}
 }
