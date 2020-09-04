@@ -60,6 +60,10 @@ namespace MidiToJoy
 		/// CCナンバーテキストボックス
 		/// </summary>
 		Dictionary<Axis, TextBox> AxisCCNumTextBoxs { get; set; }
+		/// <summary>
+		/// 設定ボタン
+		/// </summary>
+		Dictionary<Axis, Button> AxisSettingButtons { get; set; }
 
 		public MainWindow()
 		{
@@ -160,6 +164,25 @@ namespace MidiToJoy
 				{Axis.SliderMinus, SliderMinusCCNumTextBox },
 				{Axis.DialPlus, DialPlusCCNumTextBox },
 				{Axis.DialMinus, DialMinusCCNumTextBox }
+			};
+			AxisSettingButtons = new Dictionary<Axis, Button>()
+			{
+				{Axis.XPlus, XPlusSettingButton },
+				{Axis.XMinus, XMinusSettingButton },
+				{Axis.YPlus, YPlusSettingButton },
+				{Axis.YMinus, YMinusSettingButton },
+				{Axis.ZPlus, ZPlusSettingButton },
+				{Axis.ZMinus, ZMinusSettingButton },
+				{Axis.XRPlus, XRPlusSettingButton },
+				{Axis.XRMinus, XRMinusSettingButton },
+				{Axis.YRPlus, YRPlusSettingButton },
+				{Axis.YRMinus, YRMinusSettingButton },
+				{Axis.ZRPlus, ZRPlusSettingButton },
+				{Axis.ZRMinus, ZRMinusSettingButton },
+				{Axis.SliderPlus, SliderPlusSettingButton },
+				{Axis.SliderMinus, SliderMinusSettingButton },
+				{Axis.DialPlus, DialPlusSettingButton },
+				{Axis.DialMinus, DialMinusSettingButton }
 			};
 
 			LoadData();
@@ -560,6 +583,26 @@ namespace MidiToJoy
 			}
 
 			SaveData();
+		}
+
+		/// <summary>
+		/// 設定ボタン押下時
+		/// </summary>
+		private void SettingButton_Click(object sender, RoutedEventArgs e)
+		{
+			Axis axis;
+			//どの軸のボタンが押されたか検索
+			foreach (var item in AxisSettingButtons)
+			{
+				if (ReferenceEquals(item.Value, sender))
+				{
+					axis = item.Key;
+				}
+			}
+
+			//設定画面表示
+			MIDISetWindow setWindow = new MIDISetWindow() { Owner = this };
+			setWindow.ShowDialog();
 		}
 	}
 

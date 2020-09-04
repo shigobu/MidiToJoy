@@ -43,7 +43,7 @@
 							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="XPlusCCNumTextBox" Margin="3"/>
-						<Button Margin="3" x:Name="XPlusSettingButton">設定</Button>
+						<Button Margin="3" x:Name="XPlusSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Width="60" Text="X-" VerticalAlignment="Center" Margin="3"/>
@@ -70,7 +70,7 @@
 							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="XMinusCCNumTextBox" Margin="3"/>
-						<Button Margin="3" x:Name="XMinusSettingButton">設定</Button>
+						<Button Margin="3" x:Name="XMinusSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Width="60" Text="Y+" VerticalAlignment="Center" Margin="3"/>
@@ -97,7 +97,7 @@
 							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="YPlusCCNumTextBox" Margin="3"/>
-						<Button Margin="3" x:Name="YPlusSettingButton">設定</Button>
+						<Button Margin="3" x:Name="YPlusSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Width="60" Text="Y-" VerticalAlignment="Center" Margin="3"/>
@@ -124,7 +124,7 @@
 							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="YMinusCCNumTextBox" Margin="3"/>
-						<Button Margin="3" x:Name="YMinusSettingButton">設定</Button>
+						<Button Margin="3" x:Name="YMinusSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Width="60" Text="Z+" VerticalAlignment="Center" Margin="3"/>
@@ -151,7 +151,7 @@
 							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="ZPlusCCNumTextBox" Margin="3"/>
-						<Button Margin="3" x:Name="ZPlusSettingButton">設定</Button>
+						<Button Margin="3" x:Name="ZPlusSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Width="60" Text="Z-" VerticalAlignment="Center" Margin="3"/>
@@ -178,7 +178,7 @@
 							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="ZMinusCCNumTextBox" Margin="3"/>
-						<Button Margin="3" x:Name="ZMinusSettingButton">設定</Button>
+						<Button Margin="3" x:Name="ZMinusSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Width="60" Text="X回転+" VerticalAlignment="Center" Margin="3"/>
@@ -205,7 +205,7 @@
 							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="XRPlusCCNumTextBox" Margin="3"/>
-						<Button Margin="3" x:Name="XRPlusSettingButton">設定</Button>
+						<Button Margin="3" x:Name="XRPlusSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Width="60" Text="X回転-" VerticalAlignment="Center" Margin="3"/>
@@ -232,7 +232,7 @@
 							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="XRMinusCCNumTextBox" Margin="3"/>
-						<Button Margin="3" x:Name="XRMinusSettingButton">設定</Button>
+						<Button Margin="3" x:Name="XRMinusSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Width="60" Text="Y回転+" VerticalAlignment="Center" Margin="3"/>
@@ -259,7 +259,7 @@
 							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="YRPlusCCNumTextBox" Margin="3"/>
-						<Button Margin="3" x:Name="YRPlusSettingButton">設定</Button>
+						<Button Margin="3" x:Name="YRPlusSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Width="60" Text="Y回転-" VerticalAlignment="Center" Margin="3"/>
@@ -286,7 +286,7 @@
 							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="YRMinusCCNumTextBox" Margin="3"/>
-						<Button Margin="3" x:Name="YRMinusSettingButton">設定</Button>
+						<Button Margin="3" x:Name="YRMinusSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Width="60" Text="Z回転+" VerticalAlignment="Center" Margin="3"/>
@@ -313,7 +313,7 @@
 							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="ZRPlusCCNumTextBox" Margin="3"/>
-						<Button Margin="3" x:Name="ZRPlusSettingButton">設定</Button>
+						<Button Margin="3" x:Name="ZRPlusSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Width="60" Text="Z回転-" VerticalAlignment="Center" Margin="3"/>
@@ -340,7 +340,7 @@
 							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="ZRMinusCCNumTextBox" Margin="3"/>
-						<Button Margin="3" x:Name="ZRMinusSettingButton">設定</Button>
+						<Button Margin="3" x:Name="ZRMinusSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Width="60" Text="スライダー+" VerticalAlignment="Center" Margin="3"/>
@@ -367,7 +367,7 @@
 							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="SliderPlusCCNumTextBox" Margin="3"/>
-						<Button Margin="3" x:Name="SliderPlusSettingButton">設定</Button>
+						<Button Margin="3" x:Name="SliderPlusSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Width="60" Text="スライダー-" VerticalAlignment="Center" Margin="3"/>
@@ -394,7 +394,7 @@
 							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="SliderMinusCCNumTextBox" Margin="3"/>
-						<Button Margin="3" x:Name="SliderMinusSettingButton">設定</Button>
+						<Button Margin="3" x:Name="SliderMinusSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Width="60" Text="ダイヤル+" VerticalAlignment="Center" Margin="3"/>
@@ -421,7 +421,7 @@
 							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="DialPlusCCNumTextBox" Margin="3"/>
-						<Button Margin="3" x:Name="DialPlusSettingButton">設定</Button>
+						<Button Margin="3" x:Name="DialPlusSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Width="60" Text="ダイヤル-" VerticalAlignment="Center" Margin="3"/>
@@ -448,7 +448,7 @@
 							<ComboBoxItem Content="{Binding PitchBendString}"/>
 						</ComboBox>
 						<TextBox Width="60" x:Name="DialMinusCCNumTextBox" Margin="3"/>
-						<Button Margin="3" x:Name="DialMinusSettingButton">設定</Button>
+						<Button Margin="3" x:Name="DialMinusSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
 				</StackPanel>			
 			</TabItem>
