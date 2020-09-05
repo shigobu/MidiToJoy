@@ -28,7 +28,7 @@ namespace MidiToJoy
 		/// <summary>
 		/// コマンドコード名
 		/// </summary>
-		public string CommandCodeName { get; set; } = "CC";
+		public string CommandCodeName { get; set; } = "";
 
 		/// <summary>
 		/// CC番号

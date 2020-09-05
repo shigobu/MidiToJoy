@@ -98,12 +98,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MIDIButtonSetWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MIDISetWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MIDIButtonSetWindow.xaml.cs">
+      <DependentUpon>MIDIButtonSetWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MIDISetWindow.xaml.cs">
       <DependentUpon>MIDISetWindow.xaml</DependentUpon>
     </Compile>

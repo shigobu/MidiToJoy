@@ -28,13 +28,14 @@ namespace MidiToJoy
 	public partial class MainWindow : Window
 	{
 		/// <summary>
-		/// 「CC」を返します。
-		/// </summary>
-		public static string CCstring { get; } = "CC";
-		/// <summary>
 		/// 「ピッチベンド」を返します。
 		/// </summary>
 		public static string PitchBendString { get; } = "ピッチベンド";
+
+		/// <summary>
+		/// 「CC」を返します。
+		/// </summary>
+		public static string CCstring { get; } = "CC";
 
 		/// <summary>
 		/// アナログ軸の最大値
@@ -272,11 +273,33 @@ namespace MidiToJoy
 		/// <param name="e"></param>
 		private void midiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
 		{
+			//アナログ軸
 			foreach (Axis item in Enum.GetValues(typeof(Axis)))
 			{
 				if (IsValidInput(item, e))
 				{
 					SetVjoyAxis(item, e);
+				}
+			}
+
+			//ボタン
+			if (e.MidiEvent.Channel == 1)
+			{
+				if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange)
+				{
+					byte midiCCNum = (byte)((e.RawMessage >> 8) & 0b11111111);
+					if (midiCCNum == 64)
+					{
+						byte midiCCVal = (byte)((e.RawMessage >> 16) & 0b11111111);
+						if (midiCCVal >= 64)
+						{
+							joystick.SetBtn(true, vjoyId, 1);
+						}
+						else
+						{
+							joystick.SetBtn(false, vjoyId, 1);
+						}
+					}
 				}
 			}
 		}
@@ -533,6 +556,16 @@ namespace MidiToJoy
 					return;
 				}
 
+				//midi読み込みを一時停止
+				MidiIn.Stop();
+
+				//CCかピッチベンドで無い場合設定しない。
+				if (setWindow.CommandCodeName != CCstring && setWindow.CommandCodeName != PitchBendString)
+				{
+					MessageBox.Show("アナログ軸には、コントロールチェンジかピッチベンドを指定してください。", "情報", MessageBoxButton.OK, MessageBoxImage.Information);
+					return;
+				}
+
 				AxisChannelCombos[axis].SelectedIndex = setWindow.Channel;
 				AxisCommandCodeCombos[axis].SelectedValue = setWindow.CommandCodeName;
 				AxisCCNumTextBoxs[axis].Text = setWindow.CCNum.ToString();
@@ -547,7 +580,25 @@ namespace MidiToJoy
 
 				//midiインベント
 				MidiIn.MessageReceived += midiIn_MessageReceived;
+				MidiIn.Start();
 			}
+		}
+
+		/// <summary>
+		/// ボタンタブのボタン設定ボタンが押されたとき
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void ButtonSettingButton_Click(object sender, RoutedEventArgs e)
+		{
+			string buttonName = ((Button)sender).Content.ToString();
+			int buttonNum = 0;
+			int.TryParse(buttonName, out buttonNum);
+			MIDIButtonSetWindow buttonSetWindow = new MIDIButtonSetWindow();
+			buttonSetWindow.Owner = this;
+			buttonSetWindow.ButtonName = buttonName;
+			buttonSetWindow.ShowDialog();
+
 		}
 	}
 
