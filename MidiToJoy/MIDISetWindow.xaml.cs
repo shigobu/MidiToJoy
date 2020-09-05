@@ -33,7 +33,7 @@ namespace MidiToJoy
 		/// <summary>
 		/// CC番号
 		/// </summary>
-		public int CCNum { get; set; } = 0;
+		public int DataByte1 { get; set; } = 0;
 
 		public MIDISetWindow()
 		{
@@ -51,8 +51,8 @@ namespace MidiToJoy
 			switch (e.MidiEvent.CommandCode)
 			{
 				case MidiCommandCode.NoteOff:
-					break;
 				case MidiCommandCode.NoteOn:
+					CommandCodeName = MIDIButtonSetWindow.NoteString;
 					break;
 				case MidiCommandCode.ControlChange:
 					CommandCodeName = MainWindow.CCstring;
@@ -63,9 +63,15 @@ namespace MidiToJoy
 				default:
 					break;
 			}
-			if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange)
+			switch (e.MidiEvent.CommandCode)
 			{
-				CCNum = (e.RawMessage >> 8) & 0b0000000011111111;
+				case MidiCommandCode.NoteOff:
+				case MidiCommandCode.NoteOn:
+				case MidiCommandCode.ControlChange:
+					DataByte1 = (e.RawMessage >> 8) & 0b0000000011111111;
+					break;
+				default:
+					break;
 			}
 
 			SetDialogResult(true);

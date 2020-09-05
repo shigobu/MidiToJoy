@@ -271,7 +271,7 @@ namespace MidiToJoy
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void midiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
+		public void midiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
 		{
 			//アナログ軸
 			foreach (Axis item in Enum.GetValues(typeof(Axis)))
@@ -568,7 +568,7 @@ namespace MidiToJoy
 
 				AxisChannelCombos[axis].SelectedIndex = setWindow.Channel;
 				AxisCommandCodeCombos[axis].SelectedValue = setWindow.CommandCodeName;
-				AxisCCNumTextBoxs[axis].Text = setWindow.CCNum.ToString();
+				AxisCCNumTextBoxs[axis].Text = setWindow.DataByte1.ToString();
 				
 			}
 			finally
@@ -594,9 +594,8 @@ namespace MidiToJoy
 			string buttonName = ((Button)sender).Content.ToString();
 			int buttonNum = 0;
 			int.TryParse(buttonName, out buttonNum);
-			MIDIButtonSetWindow buttonSetWindow = new MIDIButtonSetWindow();
+			MIDIButtonSetWindow buttonSetWindow = new MIDIButtonSetWindow(buttonName, MidiIn);
 			buttonSetWindow.Owner = this;
-			buttonSetWindow.ButtonName = buttonName;
 			buttonSetWindow.ShowDialog();
 
 		}

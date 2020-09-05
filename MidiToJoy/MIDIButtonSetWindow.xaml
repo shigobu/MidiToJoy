@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MidiToJoy"
         mc:Ignorable="d"
         Title="ボタン設定" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner">
-	<StackPanel>
+	<StackPanel Margin="5">
 		<StackPanel Orientation="Horizontal">
 			<TextBlock Width="60" Margin="3" VerticalAlignment="Center" Text="ボタン名"/>
 			<TextBlock Width="60" Margin="3" VerticalAlignment="Center" Text="チャンネル"/>
@@ -15,7 +15,7 @@
 		</StackPanel>
 		<StackPanel Orientation="Horizontal">
 			<TextBlock Width="60" Text="{Binding ButtonName}" VerticalAlignment="Center" TextAlignment="Center" Margin="3"/>
-			<ComboBox Width="60" x:Name="XChannelCombo" SelectedIndex="0" Margin="3">
+			<ComboBox Width="60" x:Name="ChannelCombo" SelectedIndex="0" Margin="3">
 				<ComboBoxItem>1</ComboBoxItem>
 				<ComboBoxItem>2</ComboBoxItem>
 				<ComboBoxItem>3</ComboBoxItem>
@@ -33,7 +33,7 @@
 				<ComboBoxItem>15</ComboBoxItem>
 				<ComboBoxItem>16</ComboBoxItem>
 			</ComboBox>
-			<ComboBox Width="80" x:Name="XCommandCodeCombo" SelectedIndex="0" Margin="3" SelectedValuePath="Content">
+			<ComboBox Width="80" x:Name="CommandCodeCombo" SelectedIndex="0" Margin="3" SelectedValuePath="Content">
 				<ComboBoxItem Content="{Binding NoteString}"/>
 				<ComboBoxItem Content="{Binding NoteOnString}"/>
 				<ComboBoxItem Content="{Binding NoteOffString}"/>
@@ -41,8 +41,12 @@
 				<ComboBoxItem Content="{Binding CCOnString}"/>
 				<ComboBoxItem Content="{Binding CCOffString}"/>
 			</ComboBox>
-			<TextBox Width="60" x:Name="XCCNumTextBox" Margin="3"/>
-			<Button Margin="3" x:Name="XSettingButton" Click="SettingButton_Click">設定</Button>
+			<TextBox Width="60" x:Name="CCNoteNumTextBox" Margin="3"/>
+			<Button Margin="3" x:Name="SettingButton" Click="SettingButton_Click">設定</Button>
+		</StackPanel>
+		<StackPanel Margin="0,5,0,0" Orientation="Horizontal" FlowDirection="RightToLeft">
+			<Button Margin="3" Width="60" IsCancel="True">キャンセル</Button>
+			<Button Margin="3" Width="60" IsDefault="True" x:Name="OkButton" Click="OkButton_Click">OK</Button>
 		</StackPanel>
 	</StackPanel>
 </Window>
