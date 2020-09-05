@@ -238,6 +238,46 @@
 			</TabItem>
 			<TabItem Header="ボタン">
 				<StackPanel Margin="3">
+					<StackPanel Orientation="Horizontal">
+						<Button Width="30" Margin="3" FontSize="20">1</Button>
+						<Button Width="30" Margin="3" FontSize="20">2</Button>
+						<Button Width="30" Margin="3" FontSize="20">3</Button>
+						<Button Width="30" Margin="3" FontSize="20">4</Button>
+						<Button Width="30" Margin="3" FontSize="20">5</Button>
+						<Button Width="30" Margin="3" FontSize="20">6</Button>
+						<Button Width="30" Margin="3" FontSize="20">7</Button>
+						<Button Width="30" Margin="3" FontSize="20">8</Button>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<Button Width="30" Margin="3" FontSize="20">9</Button>
+						<Button Width="30" Margin="3" FontSize="20">10</Button>
+						<Button Width="30" Margin="3" FontSize="20">11</Button>
+						<Button Width="30" Margin="3" FontSize="20">12</Button>
+						<Button Width="30" Margin="3" FontSize="20">13</Button>
+						<Button Width="30" Margin="3" FontSize="20">14</Button>
+						<Button Width="30" Margin="3" FontSize="20">15</Button>
+						<Button Width="30" Margin="3" FontSize="20">16</Button>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<Button Width="30" Margin="3" FontSize="20">17</Button>
+						<Button Width="30" Margin="3" FontSize="20">18</Button>
+						<Button Width="30" Margin="3" FontSize="20">19</Button>
+						<Button Width="30" Margin="3" FontSize="20">20</Button>
+						<Button Width="30" Margin="3" FontSize="20">21</Button>
+						<Button Width="30" Margin="3" FontSize="20">22</Button>
+						<Button Width="30" Margin="3" FontSize="20">23</Button>
+						<Button Width="30" Margin="3" FontSize="20">24</Button>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<Button Width="30" Margin="3" FontSize="20">25</Button>
+						<Button Width="30" Margin="3" FontSize="20">26</Button>
+						<Button Width="30" Margin="3" FontSize="20">27</Button>
+						<Button Width="30" Margin="3" FontSize="20">28</Button>
+						<Button Width="30" Margin="3" FontSize="20">29</Button>
+						<Button Width="30" Margin="3" FontSize="20">30</Button>
+						<Button Width="30" Margin="3" FontSize="20">31</Button>
+						<Button Width="30" Margin="3" FontSize="20">32</Button>
+					</StackPanel>
 				</StackPanel>
 			</TabItem>
 		</TabControl>

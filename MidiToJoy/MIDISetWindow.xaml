@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="MIDI入力設定" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow">
     <Grid Margin="10">
-		<TextBlock Text="設定したいMIDIデバイスのつまみやスライダーを操作してください。"/>
+		<TextBlock Text="設定したいMIDIデバイスのつまみやスライダー・ボタンを操作してください。"/>
 	</Grid>
 </Window>
