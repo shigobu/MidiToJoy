@@ -114,6 +114,8 @@
     <Compile Include="MIDISetWindow.xaml.cs">
       <DependentUpon>MIDISetWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MIDITriggerInfo.cs" />
+    <Compile Include="MIDITriggerType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

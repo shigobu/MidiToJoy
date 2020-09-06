@@ -28,7 +28,7 @@ namespace MidiToJoy
 		/// <summary>
 		/// コマンドコード名
 		/// </summary>
-		public string CommandCodeName { get; set; } = "";
+		public MIDITriggerType TriggerType { get; set; } = MIDITriggerType.Note;
 
 		/// <summary>
 		/// CC番号
@@ -52,13 +52,13 @@ namespace MidiToJoy
 			{
 				case MidiCommandCode.NoteOff:
 				case MidiCommandCode.NoteOn:
-					CommandCodeName = MIDIButtonSetWindow.NoteString;
+					TriggerType = MIDITriggerType.Note;
 					break;
 				case MidiCommandCode.ControlChange:
-					CommandCodeName = MainWindow.CCstring;
+					TriggerType = MIDITriggerType.ControlChange;
 					break;
 				case MidiCommandCode.PitchWheelChange:
-					CommandCodeName = MainWindow.PitchBendString;
+					TriggerType = MIDITriggerType.PitchWheelChange;
 					break;
 				default:
 					break;

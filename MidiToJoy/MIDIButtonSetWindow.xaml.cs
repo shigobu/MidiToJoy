@@ -21,34 +21,17 @@ namespace MidiToJoy
 	public partial class MIDIButtonSetWindow : Window
 	{
 		/// <summary>
-		/// 「CC」を返します。
+		/// 種類コンボボックスに割り当てるもの。
 		/// </summary>
-		public static string CCString { get; } = "CC";
-
-		/// <summary>
-		/// 「CCOn」を返します。
-		/// </summary>
-		public static string CCOnString { get; } = "CCOn";
-
-		/// <summary>
-		/// 「CCOff」を返します。
-		/// </summary>
-		public static string CCOffString { get; } = "CCOff";
-
-		/// <summary>
-		/// 「ノート」を返します。
-		/// </summary>
-		public static string NoteString { get; } = "ノート";
-
-		/// <summary>
-		/// 「ノートOn」を返します。
-		/// </summary>
-		public static string NoteOnString { get; } = "ノートOn";
-
-		/// <summary>
-		/// 「ノートOff」を返します。
-		/// </summary>
-		public static string NoteOffString { get; } = "ノートOff";
+		public List<MIDITriggerTypeAndName> TriggerTypeAndNames { get; } = new List<MIDITriggerTypeAndName>()
+		{
+			new MIDITriggerTypeAndName(MIDITriggerType.Note),
+			new MIDITriggerTypeAndName(MIDITriggerType.NoteOn),
+			new MIDITriggerTypeAndName(MIDITriggerType.NoteOff),
+			new MIDITriggerTypeAndName(MIDITriggerType.ControlChange),
+			new MIDITriggerTypeAndName(MIDITriggerType.ControlChangeOn),
+			new MIDITriggerTypeAndName(MIDITriggerType.ControlChangeOff)
+		};
 
 		/// <summary>
 		/// ボタン名を取得、設定します。
@@ -95,14 +78,14 @@ namespace MidiToJoy
 				MidiIn.Stop();
 
 				//CCかピッチベンドで無い場合設定しない。
-				if (setWindow.CommandCodeName != CCString && setWindow.CommandCodeName != NoteString)
+				if (setWindow.TriggerType != MIDITriggerType.ControlChange && setWindow.TriggerType != MIDITriggerType.Note)
 				{
 					MessageBox.Show("アナログ軸には、ノートかコントロールチェンジを指定してください。", "情報", MessageBoxButton.OK, MessageBoxImage.Information);
 					return;
 				}
 
 				ChannelCombo.SelectedIndex = setWindow.Channel;
-				CommandCodeCombo.SelectedValue = setWindow.CommandCodeName;
+				CommandCodeCombo.SelectedValue = setWindow.TriggerType;
 				CCNoteNumTextBox.Text = setWindow.DataByte1.ToString();
 
 			}

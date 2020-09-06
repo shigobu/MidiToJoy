@@ -28,16 +28,6 @@ namespace MidiToJoy
 	public partial class MainWindow : Window
 	{
 		/// <summary>
-		/// 「ピッチベンド」を返します。
-		/// </summary>
-		public static string PitchBendString { get; } = "ピッチベンド";
-
-		/// <summary>
-		/// 「CC」を返します。
-		/// </summary>
-		public static string CCstring { get; } = "CC";
-
-		/// <summary>
 		/// アナログ軸の最大値
 		/// </summary>
 		private long MaxAxisValue = 0;
@@ -65,6 +55,15 @@ namespace MidiToJoy
 		/// 設定ボタン
 		/// </summary>
 		Dictionary<Axis, Button> AxisSettingButtons { get; set; }
+
+		/// <summary>
+		/// 種類コンボボックスに割り当てるもの。
+		/// </summary>
+		public List<MIDITriggerTypeAndName> TriggerTypeAndNames { get; } = new List<MIDITriggerTypeAndName>()
+		{
+			new MIDITriggerTypeAndName(MIDITriggerType.ControlChange),
+			new MIDITriggerTypeAndName(MIDITriggerType.PitchWheelChange)
+		};
 
 		public MainWindow()
 		{
@@ -212,21 +211,21 @@ namespace MidiToJoy
 			}
 		}
 
-		delegate string GetComboItemDelegate(ComboBox comboBox);
+		delegate MIDITriggerType GetTypeComboValueDelegate(ComboBox comboBox);
 		/// <summary>
-		/// コンボボックスの選択中文字列を取得します。
+		/// 種類コンボボックスの選択中タイプを取得します。
 		/// </summary>
 		/// <param name="comboBox"></param>
 		/// <returns></returns>
-		private string GetComboItem(ComboBox comboBox)
+		private MIDITriggerType GetTypeComboValue(ComboBox comboBox)
 		{
 			if (comboBox.Dispatcher.CheckAccess())
 			{
-				return ((ComboBoxItem)comboBox.SelectedItem).Content.ToString();
+				return (MIDITriggerType)comboBox.SelectedValue;
 			}
 			else
 			{
-				return (string)comboBox.Dispatcher.Invoke(new GetComboItemDelegate(GetComboItem), comboBox);
+				return (MIDITriggerType)comboBox.Dispatcher.Invoke(new GetTypeComboValueDelegate(GetTypeComboValue), comboBox);
 			}
 		}
 
@@ -320,8 +319,8 @@ namespace MidiToJoy
 			{
 				return false;
 			}
-			string CommandCodeName = GetComboItem(CommandCodeCombo);
-			if (CommandCodeName == CCstring)
+			MIDITriggerType type = GetTypeComboValue(CommandCodeCombo);
+			if (type == MIDITriggerType.ControlChange)
 			{
 				if (e.MidiEvent.CommandCode != MidiCommandCode.ControlChange)
 				{
@@ -335,7 +334,7 @@ namespace MidiToJoy
 					return false;
 				}
 			}
-			else if (CommandCodeName == PitchBendString)
+			else if (type == MIDITriggerType.PitchWheelChange)
 			{
 				if (e.MidiEvent.CommandCode != MidiCommandCode.PitchWheelChange)
 				{
@@ -560,14 +559,14 @@ namespace MidiToJoy
 				MidiIn.Stop();
 
 				//CCかピッチベンドで無い場合設定しない。
-				if (setWindow.CommandCodeName != CCstring && setWindow.CommandCodeName != PitchBendString)
+				if (setWindow.TriggerType != MIDITriggerType.ControlChange && setWindow.TriggerType != MIDITriggerType.PitchWheelChange)
 				{
 					MessageBox.Show("アナログ軸には、コントロールチェンジかピッチベンドを指定してください。", "情報", MessageBoxButton.OK, MessageBoxImage.Information);
 					return;
 				}
 
 				AxisChannelCombos[axis].SelectedIndex = setWindow.Channel;
-				AxisCommandCodeCombos[axis].SelectedValue = setWindow.CommandCodeName;
+				AxisCommandCodeCombos[axis].SelectedValue = setWindow.TriggerType;
 				AxisCCNumTextBoxs[axis].Text = setWindow.DataByte1.ToString();
 				
 			}

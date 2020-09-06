@@ -38,10 +38,8 @@
 							<ComboBoxItem>15</ComboBoxItem>
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
-						<ComboBox Width="80" x:Name="XCommandCodeCombo" SelectedIndex="0" Margin="3" SelectedValuePath="Content">
-							<ComboBoxItem Content="{Binding CCstring}"/>
-							<ComboBoxItem Content="{Binding PitchBendString}"/>
-						</ComboBox>
+						<ComboBox Width="80" x:Name="XCommandCodeCombo" SelectedIndex="0" Margin="3"
+								  ItemsSource="{Binding TriggerTypeAndNames}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
 						<TextBox Width="60" x:Name="XCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="XSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
@@ -65,10 +63,8 @@
 							<ComboBoxItem>15</ComboBoxItem>
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
-						<ComboBox Width="80" x:Name="YCommandCodeCombo" SelectedIndex="0" Margin="3" SelectedValuePath="Content">
-							<ComboBoxItem Content="{Binding CCstring}"/>
-							<ComboBoxItem Content="{Binding PitchBendString}"/>
-						</ComboBox>
+						<ComboBox Width="80" x:Name="YCommandCodeCombo" SelectedIndex="0" Margin="3" 
+								  ItemsSource="{Binding TriggerTypeAndNames}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
 						<TextBox Width="60" x:Name="YCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="YSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
@@ -92,10 +88,8 @@
 							<ComboBoxItem>15</ComboBoxItem>
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
-						<ComboBox Width="80" x:Name="ZCommandCodeCombo" SelectedIndex="0" Margin="3" SelectedValuePath="Content">
-							<ComboBoxItem Content="{Binding CCstring}"/>
-							<ComboBoxItem Content="{Binding PitchBendString}"/>
-						</ComboBox>
+						<ComboBox Width="80" x:Name="ZCommandCodeCombo" SelectedIndex="0" Margin="3" 
+								  ItemsSource="{Binding TriggerTypeAndNames}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
 						<TextBox Width="60" x:Name="ZCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="ZSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
@@ -119,10 +113,8 @@
 							<ComboBoxItem>15</ComboBoxItem>
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
-						<ComboBox Width="80" x:Name="XRCommandCodeCombo" SelectedIndex="0" Margin="3" SelectedValuePath="Content">
-							<ComboBoxItem Content="{Binding CCstring}"/>
-							<ComboBoxItem Content="{Binding PitchBendString}"/>
-						</ComboBox>
+						<ComboBox Width="80" x:Name="XRCommandCodeCombo" SelectedIndex="0" Margin="3" 
+								  ItemsSource="{Binding TriggerTypeAndNames}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
 						<TextBox Width="60" x:Name="XRCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="XRSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
@@ -146,10 +138,8 @@
 							<ComboBoxItem>15</ComboBoxItem>
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
-						<ComboBox Width="80" x:Name="YRCommandCodeCombo" SelectedIndex="0" Margin="3" SelectedValuePath="Content">
-							<ComboBoxItem Content="{Binding CCstring}"/>
-							<ComboBoxItem Content="{Binding PitchBendString}"/>
-						</ComboBox>
+						<ComboBox Width="80" x:Name="YRCommandCodeCombo" SelectedIndex="0" Margin="3" 
+								  ItemsSource="{Binding TriggerTypeAndNames}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
 						<TextBox Width="60" x:Name="YRCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="YRSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
@@ -173,10 +163,8 @@
 							<ComboBoxItem>15</ComboBoxItem>
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
-						<ComboBox Width="80" x:Name="ZRCommandCodeCombo" SelectedIndex="0" Margin="3" SelectedValuePath="Content">
-							<ComboBoxItem Content="{Binding CCstring}"/>
-							<ComboBoxItem Content="{Binding PitchBendString}"/>
-						</ComboBox>
+						<ComboBox Width="80" x:Name="ZRCommandCodeCombo" SelectedIndex="0" Margin="3"
+								  ItemsSource="{Binding TriggerTypeAndNames}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
 						<TextBox Width="60" x:Name="ZRCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="ZRSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
@@ -200,10 +188,8 @@
 							<ComboBoxItem>15</ComboBoxItem>
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
-						<ComboBox Width="80" x:Name="SliderCommandCodeCombo" SelectedIndex="0" Margin="3" SelectedValuePath="Content">
-							<ComboBoxItem Content="{Binding CCstring}"/>
-							<ComboBoxItem Content="{Binding PitchBendString}"/>
-						</ComboBox>
+						<ComboBox Width="80" x:Name="SliderCommandCodeCombo" SelectedIndex="0" Margin="3" 
+								  ItemsSource="{Binding TriggerTypeAndNames}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
 						<TextBox Width="60" x:Name="SliderCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="SliderSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
@@ -227,10 +213,8 @@
 							<ComboBoxItem>15</ComboBoxItem>
 							<ComboBoxItem>16</ComboBoxItem>
 						</ComboBox>
-						<ComboBox Width="80" x:Name="DialCommandCodeCombo" SelectedIndex="0" Margin="3" SelectedValuePath="Content">
-							<ComboBoxItem Content="{Binding CCstring}"/>
-							<ComboBoxItem Content="{Binding PitchBendString}"/>
-						</ComboBox>
+						<ComboBox Width="80" x:Name="DialCommandCodeCombo" SelectedIndex="0" Margin="3"
+								  ItemsSource="{Binding TriggerTypeAndNames}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
 						<TextBox Width="60" x:Name="DialCCNumTextBox" Margin="3"/>
 						<Button Margin="3" x:Name="DialSettingButton" Click="SettingButton_Click">設定</Button>
 					</StackPanel>
