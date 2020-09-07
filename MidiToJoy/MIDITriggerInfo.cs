@@ -16,7 +16,7 @@ namespace MidiToJoy
 		}
 
 		/// <summary>
-		/// チャンネル １始まり
+		/// チャンネル(1-16)
 		/// </summary>
 		public int Channel { get; set; }
 
