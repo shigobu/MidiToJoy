@@ -57,6 +57,11 @@ namespace MidiToJoy
 		Dictionary<Axis, Button> AxisSettingButtons { get; set; }
 
 		/// <summary>
+		/// ボタン設定の内容
+		/// </summary>
+		Dictionary<int, MIDITriggerInfo> ButtonTriggerInfos { get; set; }
+
+		/// <summary>
 		/// 種類コンボボックスに割り当てるもの。
 		/// </summary>
 		public List<MIDITriggerTypeAndName> TriggerTypeAndNames { get; } = new List<MIDITriggerTypeAndName>()
@@ -70,6 +75,42 @@ namespace MidiToJoy
 			InitializeComponent();
 			joystick = new vJoy();
 			DataContext = this;
+
+			ButtonTriggerInfos = new Dictionary<int, MIDITriggerInfo>()
+			{
+				{1, new MIDITriggerInfo() },
+				{2, new MIDITriggerInfo() },
+				{3, new MIDITriggerInfo() },
+				{4, new MIDITriggerInfo() },
+				{5, new MIDITriggerInfo() },
+				{6, new MIDITriggerInfo() },
+				{7, new MIDITriggerInfo() },
+				{8, new MIDITriggerInfo() },
+				{9, new MIDITriggerInfo() },
+				{10, new MIDITriggerInfo() },
+				{11, new MIDITriggerInfo() },
+				{12, new MIDITriggerInfo() },
+				{13, new MIDITriggerInfo() },
+				{14, new MIDITriggerInfo() },
+				{15, new MIDITriggerInfo() },
+				{16, new MIDITriggerInfo() },
+				{17, new MIDITriggerInfo() },
+				{18, new MIDITriggerInfo() },
+				{19, new MIDITriggerInfo() },
+				{20, new MIDITriggerInfo() },
+				{21, new MIDITriggerInfo() },
+				{22, new MIDITriggerInfo() },
+				{23, new MIDITriggerInfo() },
+				{24, new MIDITriggerInfo() },
+				{25, new MIDITriggerInfo() },
+				{26, new MIDITriggerInfo() },
+				{27, new MIDITriggerInfo() },
+				{28, new MIDITriggerInfo() },
+				{29, new MIDITriggerInfo() },
+				{30, new MIDITriggerInfo() },
+				{31, new MIDITriggerInfo() },
+				{32, new MIDITriggerInfo() }
+			};
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -593,10 +634,16 @@ namespace MidiToJoy
 			string buttonName = ((Button)sender).Content.ToString();
 			int buttonNum = 0;
 			int.TryParse(buttonName, out buttonNum);
-			MIDIButtonSetWindow buttonSetWindow = new MIDIButtonSetWindow(buttonName, MidiIn);
+			MIDIButtonSetWindow buttonSetWindow = new MIDIButtonSetWindow(buttonName, MidiIn, ButtonTriggerInfos[buttonNum]);
 			buttonSetWindow.Owner = this;
-			buttonSetWindow.ShowDialog();
 
+			bool result = buttonSetWindow.ShowDialog() ?? false;
+			if (!result)
+			{
+				return;
+			}
+
+			ButtonTriggerInfos[buttonNum] = buttonSetWindow.TriggerInfo;
 		}
 	}
 

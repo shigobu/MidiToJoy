@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace MidiToJoy
 {
-	class MIDITriggerInfo
+	public class MIDITriggerInfo
 	{
+		public MIDITriggerInfo()
+		{
+			Channel = 1;
+			Type = MIDITriggerType.Note;
+			DataByte1 = 0;
+		}
+
 		public MIDITriggerInfo(int channel, MIDITriggerType type, int dataByte1)
 		{
 			Channel = channel;

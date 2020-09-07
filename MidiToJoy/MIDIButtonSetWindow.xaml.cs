@@ -39,15 +39,37 @@ namespace MidiToJoy
 		public string ButtonName { get; set; } = "";
 
 		/// <summary>
+		/// キッカケ情報
+		/// </summary>
+		public MIDITriggerInfo TriggerInfo
+		{
+			get
+			{
+				int channel = ChannelCombo.SelectedIndex + 1;
+				MIDITriggerType type = (MIDITriggerType)CommandCodeCombo.SelectedValue;
+				int dataByte1 = 0;
+				int.TryParse(CCNoteNumTextBox.Text, out dataByte1);
+				return new MIDITriggerInfo(channel, type, dataByte1);
+			}
+			set
+			{
+				ChannelCombo.SelectedIndex = value.Channel - 1;
+				CommandCodeCombo.SelectedValue = value.Type;
+				CCNoteNumTextBox.Text = value.DataByte1.ToString();
+			}
+		}
+
+		/// <summary>
 		/// midi入力デバイスを取得、設定します。
 		/// </summary>
 		private MidiIn MidiIn { get; set; } = null;
 
-		public MIDIButtonSetWindow(string buttonName, MidiIn midiIn)
+		public MIDIButtonSetWindow(string buttonName, MidiIn midiIn, MIDITriggerInfo triggerInfo)
 		{
 			InitializeComponent();
 			ButtonName = buttonName;
 			MidiIn = midiIn;
+			TriggerInfo = triggerInfo;
 
 			DataContext = this;
 		}
@@ -109,7 +131,8 @@ namespace MidiToJoy
 		/// <param name="e"></param>
 		private void OkButton_Click(object sender, RoutedEventArgs e)
 		{
-
+			DialogResult = true;
+			Close();
 		}
 	}
 }
