@@ -84,7 +84,7 @@ namespace MidiToJoy
 			try
 			{
 				//midiイベントを一旦削除
-				MidiIn.MessageReceived -= ((MainWindow)Owner).midiIn_MessageReceived;
+				MidiIn.MessageReceived -= ((MainWindow)Owner).midiIn_MessageReceivedAsync;
 
 				//設定画面表示
 				setWindow = new MIDISetWindow();
@@ -120,7 +120,7 @@ namespace MidiToJoy
 				}
 
 				//midiインベント
-				MidiIn.MessageReceived += ((MainWindow)Owner).midiIn_MessageReceived;
+				MidiIn.MessageReceived += ((MainWindow)Owner).midiIn_MessageReceivedAsync;
 				MidiIn.Start();
 			}
 		}

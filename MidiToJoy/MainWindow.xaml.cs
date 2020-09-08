@@ -39,6 +39,7 @@ namespace MidiToJoy
 		static public uint vjoyId = 1;
 		const string appName = "MidiToJoy";
 		MidiIn MidiIn = null;
+		int buttonDelay = 50;
 		/// <summary>
 		/// チェンネルコンボの一覧アナログ軸
 		/// </summary>
@@ -297,7 +298,7 @@ namespace MidiToJoy
 			}
 
 			MidiIn = new MidiIn(comboBoxMidiInDevices.SelectedIndex);
-			MidiIn.MessageReceived += midiIn_MessageReceived;
+			MidiIn.MessageReceived += midiIn_MessageReceivedAsync;
 			MidiIn.ErrorReceived += midiIn_ErrorReceived;
 			MidiIn.Start();
 		}
@@ -311,18 +312,25 @@ namespace MidiToJoy
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		public void midiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
+		public async void midiIn_MessageReceivedAsync(object sender, MidiInMessageEventArgs e)
 		{
 			//アナログ軸
 			foreach (Axis item in Enum.GetValues(typeof(Axis)))
 			{
-				if (IsValidInput(item, e))
+				if (IsValidAxisInput(item, e))
 				{
 					SetVjoyAxis(item, e);
 				}
 			}
 
 			//ボタン
+			foreach (var info in ButtonTriggerInfos)
+			{
+				if (IsValidButtonInput(info.Key, e))
+				{
+					await SetVjoyButtonAsync(info.Key, e);
+				}
+			}
 			if (e.MidiEvent.Channel == 1)
 			{
 				if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange)
@@ -350,7 +358,7 @@ namespace MidiToJoy
 		/// <param name="axis"></param>
 		/// <param name="e"></param>
 		/// <returns></returns>
-		private bool IsValidInput(Axis axis, MidiInMessageEventArgs e)
+		private bool IsValidAxisInput(Axis axis, MidiInMessageEventArgs e)
 		{
 			ComboBox ChannelCombo = AxisChannelCombos[axis];
 			ComboBox CommandCodeCombo = AxisCommandCodeCombos[axis];
@@ -443,6 +451,129 @@ namespace MidiToJoy
 					break;
 			}
 
+		}
+
+		/// <summary>
+		/// 指定のmidiボタン入力であるかどうかを返します。
+		/// </summary>
+		/// <param name="buttonNum"></param>
+		/// <param name="e"></param>
+		/// <returns></returns>
+		bool IsValidButtonInput(int buttonNum, MidiInMessageEventArgs e)
+		{
+			MIDITriggerInfo triggerInfo = ButtonTriggerInfos[buttonNum];
+
+			int channel = triggerInfo.Channel;
+			if (e.MidiEvent.Channel != channel)
+			{
+				return false;
+			}
+			switch (triggerInfo.Type)
+			{
+				case MIDITriggerType.Note:
+				case MIDITriggerType.NoteOn:
+				case MIDITriggerType.NoteOff:
+					if (e.MidiEvent.CommandCode != MidiCommandCode.NoteOff || e.MidiEvent.CommandCode != MidiCommandCode.NoteOn)
+					{
+						return false;
+					}
+					byte midiNoteNum = (byte)((e.RawMessage >> 8) & 0b11111111);
+					if (midiNoteNum != triggerInfo.DataByte1)
+					{
+						return false;
+					}
+					break;
+				case MIDITriggerType.ControlChange:
+				case MIDITriggerType.ControlChangeOn:
+				case MIDITriggerType.ControlChangeOff:
+					if (e.MidiEvent.CommandCode != MidiCommandCode.ControlChange)
+					{
+						return false;
+					}
+					byte midiCCNum = (byte)((e.RawMessage >> 8) & 0b11111111);
+					if (midiCCNum != triggerInfo.DataByte1)
+					{
+						return false;
+					}
+					break;
+				default:
+					return false;
+			}
+			return true;
+		}
+
+		/// <summary>
+		/// vjoyデバイスにボタン入力を指定します。
+		/// </summary>
+		/// <param name="buttonNum"></param>
+		/// <param name="e"></param>
+		async Task SetVjoyButtonAsync(int buttonNum, MidiInMessageEventArgs e)
+		{
+			MIDITriggerInfo triggerInfo = ButtonTriggerInfos[buttonNum];
+			switch (e.MidiEvent.CommandCode)
+			{
+				case MidiCommandCode.NoteOff:
+					if (triggerInfo.Type == MIDITriggerType.Note)
+					{
+						joystick.SetBtn(false, vjoyId, (uint)buttonNum);
+					}
+					else if(triggerInfo.Type == MIDITriggerType.NoteOff)
+					{
+						joystick.SetBtn(true, vjoyId, (uint)buttonNum);
+						await Task.Delay(buttonDelay);
+						joystick.SetBtn(false, vjoyId, (uint)buttonNum);
+					}
+					break;
+				case MidiCommandCode.NoteOn:
+					if (triggerInfo.Type == MIDITriggerType.Note)
+					{
+						joystick.SetBtn(true, vjoyId, (uint)buttonNum);
+					}
+					else if (triggerInfo.Type == MIDITriggerType.NoteOn)
+					{
+						joystick.SetBtn(true, vjoyId, (uint)buttonNum);
+						await Task.Delay(buttonDelay);
+						joystick.SetBtn(false, vjoyId, (uint)buttonNum);
+					}
+					else { /*何もしない*/}
+					break;
+				case MidiCommandCode.ControlChange:
+					byte midiCCVal = (byte)((e.RawMessage >> 16) & 0b11111111);
+
+					if (triggerInfo.Type == MIDITriggerType.ControlChange)
+					{
+						if (midiCCVal >= 64)
+						{
+							joystick.SetBtn(true, vjoyId, (uint)buttonNum);
+						}
+						else
+						{
+							joystick.SetBtn(false, vjoyId, (uint)buttonNum);
+						}
+					}
+					else if(triggerInfo.Type == MIDITriggerType.ControlChangeOn)
+					{
+						if (midiCCVal >= 64)
+						{
+							joystick.SetBtn(true, vjoyId, (uint)buttonNum);
+							await Task.Delay(buttonDelay);
+							joystick.SetBtn(false, vjoyId, (uint)buttonNum);
+						}
+					}
+					else if (triggerInfo.Type == MIDITriggerType.ControlChangeOff)
+					{
+						if (midiCCVal < 64)
+						{
+							joystick.SetBtn(true, vjoyId, (uint)buttonNum);
+							await Task.Delay(buttonDelay);
+							joystick.SetBtn(false, vjoyId, (uint)buttonNum);
+						}
+					}
+					else { /*何もしない*/}
+					break;
+				default:
+					break;
+			}
 		}
 
 		/// <summary>
@@ -573,7 +704,7 @@ namespace MidiToJoy
 			try
 			{
 				//midiイベントを一旦削除
-				MidiIn.MessageReceived -= midiIn_MessageReceived;
+				MidiIn.MessageReceived -= midiIn_MessageReceivedAsync;
 
 				Axis axis = Axis.X;
 				//どの軸のボタンが押されたか検索
@@ -619,7 +750,7 @@ namespace MidiToJoy
 				}
 
 				//midiインベント
-				MidiIn.MessageReceived += midiIn_MessageReceived;
+				MidiIn.MessageReceived += midiIn_MessageReceivedAsync;
 				MidiIn.Start();
 			}
 		}
