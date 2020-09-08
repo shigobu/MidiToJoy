@@ -331,25 +331,6 @@ namespace MidiToJoy
 					await SetVjoyButtonAsync(info.Key, e);
 				}
 			}
-			if (e.MidiEvent.Channel == 1)
-			{
-				if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange)
-				{
-					byte midiCCNum = (byte)((e.RawMessage >> 8) & 0b11111111);
-					if (midiCCNum == 64)
-					{
-						byte midiCCVal = (byte)((e.RawMessage >> 16) & 0b11111111);
-						if (midiCCVal >= 64)
-						{
-							joystick.SetBtn(true, vjoyId, 1);
-						}
-						else
-						{
-							joystick.SetBtn(false, vjoyId, 1);
-						}
-					}
-				}
-			}
 		}
 
 		/// <summary>
