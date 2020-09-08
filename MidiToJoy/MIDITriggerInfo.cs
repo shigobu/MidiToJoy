@@ -11,7 +11,7 @@ namespace MidiToJoy
 		public MIDITriggerInfo()
 		{
 			Channel = 1;
-			Type = MIDITriggerType.Note;
+			Type = MIDITriggerType.Unallocated;
 			DataByte1 = 0;
 		}
 

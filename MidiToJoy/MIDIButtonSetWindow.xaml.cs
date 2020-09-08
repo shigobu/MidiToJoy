@@ -30,7 +30,8 @@ namespace MidiToJoy
 			new MIDITriggerTypeAndName(MIDITriggerType.NoteOff),
 			new MIDITriggerTypeAndName(MIDITriggerType.ControlChange),
 			new MIDITriggerTypeAndName(MIDITriggerType.ControlChangeOn),
-			new MIDITriggerTypeAndName(MIDITriggerType.ControlChangeOff)
+			new MIDITriggerTypeAndName(MIDITriggerType.ControlChangeOff),
+			new MIDITriggerTypeAndName(MIDITriggerType.Unallocated)
 		};
 
 		/// <summary>

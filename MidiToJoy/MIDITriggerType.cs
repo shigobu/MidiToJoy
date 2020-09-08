@@ -19,6 +19,7 @@ namespace MidiToJoy
 		ControlChangeOn,
 		ControlChangeOff,
 		PitchWheelChange,
+		Unallocated
 	}
 
 	public class MIDITriggerTypeAndName
@@ -31,7 +32,7 @@ namespace MidiToJoy
 		/// <summary>
 		/// タイプ
 		/// </summary>
-		public MIDITriggerType Type { get; set; } = MIDITriggerType.Note;
+		public MIDITriggerType Type { get; set; } = MIDITriggerType.Unallocated;
 
 		/// <summary>
 		/// 表示名
@@ -67,6 +68,8 @@ namespace MidiToJoy
 					return "CCOff";
 				case MIDITriggerType.PitchWheelChange:
 					return "ピッチベンド";
+				case MIDITriggerType.Unallocated:
+					return "未割り当て";
 				default:
 					return "";
 			}

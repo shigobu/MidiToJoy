@@ -33,7 +33,7 @@
 				<ComboBoxItem>15</ComboBoxItem>
 				<ComboBoxItem>16</ComboBoxItem>
 			</ComboBox>
-			<ComboBox Width="80" x:Name="CommandCodeCombo" SelectedIndex="0" Margin="3"
+			<ComboBox Width="80" x:Name="CommandCodeCombo" Margin="3"
 								  ItemsSource="{Binding TriggerTypeAndNames}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
 			<TextBox Width="60" x:Name="CCNoteNumTextBox" Margin="3"/>
 			<Button Margin="3" x:Name="SettingButton" Click="SettingButton_Click">設定</Button>
