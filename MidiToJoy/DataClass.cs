@@ -14,6 +14,15 @@ namespace MidiToJoy
 		/// </summary>
 		public string SelectedMIDIDeviceName { get; set; } = "";
 
+		/// <summary>
+		/// アナログ軸の設定
+		/// </summary>
 		public Dictionary<Axis, ChannelCommandCCnum> AxisData { get; set; }
+
+		/// <summary>
+		/// ボタン設定の内容
+		/// </summary>
+		public Dictionary<int, MIDITriggerInfo> ButtonData { get; set; }
+
 	}
 }

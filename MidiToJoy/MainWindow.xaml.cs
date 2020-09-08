@@ -39,7 +39,7 @@ namespace MidiToJoy
 		static public uint vjoyId = 1;
 		const string appName = "MidiToJoy";
 		MidiIn MidiIn = null;
-		int buttonDelay = 50;
+		int buttonDelay = 100;
 		/// <summary>
 		/// チェンネルコンボの一覧アナログ軸
 		/// </summary>
@@ -615,6 +615,8 @@ namespace MidiToJoy
 				AxisCommandCodeCombos[item].SelectedIndex = channelCommandCCnum.CommandCode;
 				AxisCCNumTextBoxs[item].Text = channelCommandCCnum.CCnum.ToString();
 			}
+			//ボタン
+			ButtonTriggerInfos = dataClass.ButtonData;
 		}
 
 		/// <summary>
@@ -645,6 +647,8 @@ namespace MidiToJoy
 				axisData.Add(item, channelCommandCCnum);
 			}
 			dataClass.AxisData = axisData;
+
+			dataClass.ButtonData = ButtonTriggerInfos;
 
 			// シリアライズ先のファイル
 			Assembly myAssembly = Assembly.GetEntryAssembly();
