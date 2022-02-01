@@ -274,7 +274,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Width="60" Text="↑" VerticalAlignment="Center" Margin="3"/>
-                        <ComboBox Width="60" SelectedIndex="0" Margin="3">
+                        <ComboBox Width="60" x:Name="UpChannelCombo" SelectedIndex="0" Margin="3">
                             <ComboBoxItem>1</ComboBoxItem>
                             <ComboBoxItem>2</ComboBoxItem>
                             <ComboBoxItem>3</ComboBoxItem>
@@ -292,14 +292,14 @@
                             <ComboBoxItem>15</ComboBoxItem>
                             <ComboBoxItem>16</ComboBoxItem>
                         </ComboBox>
-                        <ComboBox Width="80" SelectedIndex="0" Margin="3"
+                        <ComboBox Width="80" x:Name="UpCommandCodeCombo" SelectedIndex="0" Margin="3"
 								  ItemsSource="{Binding TriggerTypeAndNamesPOV}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
-                        <TextBox Width="60" Margin="3"/>
-                        <Button Margin="3" Click="SettingButton_Click">設定</Button>
+                        <TextBox Width="60" x:Name="UpCCNoteNumTextBox" Margin="3"/>
+                        <Button Margin="3" x:Name="UpSettingButton" Click="SettingButton_Click">設定</Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Width="60" Text="↓" VerticalAlignment="Center" Margin="3"/>
-                        <ComboBox Width="60" SelectedIndex="0" Margin="3">
+                        <ComboBox Width="60" x:Name="DownChannelCombo" SelectedIndex="0" Margin="3">
                             <ComboBoxItem>1</ComboBoxItem>
                             <ComboBoxItem>2</ComboBoxItem>
                             <ComboBoxItem>3</ComboBoxItem>
@@ -317,14 +317,14 @@
                             <ComboBoxItem>15</ComboBoxItem>
                             <ComboBoxItem>16</ComboBoxItem>
                         </ComboBox>
-                        <ComboBox Width="80" SelectedIndex="0" Margin="3" 
+                        <ComboBox Width="80" x:Name="DownCommandCodeCombo" SelectedIndex="0" Margin="3" 
 								  ItemsSource="{Binding TriggerTypeAndNamesPOV}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
-                        <TextBox Width="60" Margin="3"/>
-                        <Button Margin="3" Click="SettingButton_Click">設定</Button>
+                        <TextBox Width="60" x:Name="DownCCNoteNumTextBox" Margin="3"/>
+                        <Button Margin="3" x:Name="DownSettingButton" Click="SettingButton_Click">設定</Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Width="60" Text="←" VerticalAlignment="Center" Margin="3"/>
-                        <ComboBox Width="60" SelectedIndex="0" Margin="3">
+                        <ComboBox Width="60" x:Name="LeftChannelCombo" SelectedIndex="0" Margin="3">
                             <ComboBoxItem>1</ComboBoxItem>
                             <ComboBoxItem>2</ComboBoxItem>
                             <ComboBoxItem>3</ComboBoxItem>
@@ -342,14 +342,14 @@
                             <ComboBoxItem>15</ComboBoxItem>
                             <ComboBoxItem>16</ComboBoxItem>
                         </ComboBox>
-                        <ComboBox Width="80" SelectedIndex="0" Margin="3" 
+                        <ComboBox Width="80" x:Name="LeftCommandCodeCombo" SelectedIndex="0" Margin="3" 
 								  ItemsSource="{Binding TriggerTypeAndNamesPOV}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
-                        <TextBox Width="60" Margin="3"/>
-                        <Button Margin="3" Click="SettingButton_Click">設定</Button>
+                        <TextBox Width="60" x:Name="LeftCCNoteNumTextBox" Margin="3"/>
+                        <Button Margin="3" x:Name="LeftSettingButton" Click="SettingButton_Click">設定</Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Width="60" Text="→" VerticalAlignment="Center" Margin="3"/>
-                        <ComboBox Width="60" SelectedIndex="0" Margin="3">
+                        <ComboBox Width="60" x:Name="RightChannelCombo" SelectedIndex="0" Margin="3">
                             <ComboBoxItem>1</ComboBoxItem>
                             <ComboBoxItem>2</ComboBoxItem>
                             <ComboBoxItem>3</ComboBoxItem>
@@ -367,14 +367,14 @@
                             <ComboBoxItem>15</ComboBoxItem>
                             <ComboBoxItem>16</ComboBoxItem>
                         </ComboBox>
-                        <ComboBox Width="80" SelectedIndex="0" Margin="3" 
+                        <ComboBox Width="80" x:Name="RightCommandCodeCombo" SelectedIndex="0" Margin="3" 
 								  ItemsSource="{Binding TriggerTypeAndNamesPOV}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
-                        <TextBox Width="60" Margin="3"/>
-                        <Button Margin="3" Click="SettingButton_Click">設定</Button>
+                        <TextBox Width="60" x:Name="RightCCNoteNumTextBox" Margin="3"/>
+                        <Button Margin="3" x:Name="RightSettingButton" Click="SettingButton_Click">設定</Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Width="60" Text="↗" VerticalAlignment="Center" Margin="3"/>
-                        <ComboBox Width="60" SelectedIndex="0" Margin="3">
+                        <ComboBox Width="60" x:Name="RightUpChannelCombo" SelectedIndex="0" Margin="3">
                             <ComboBoxItem>1</ComboBoxItem>
                             <ComboBoxItem>2</ComboBoxItem>
                             <ComboBoxItem>3</ComboBoxItem>
@@ -392,14 +392,14 @@
                             <ComboBoxItem>15</ComboBoxItem>
                             <ComboBoxItem>16</ComboBoxItem>
                         </ComboBox>
-                        <ComboBox Width="80" SelectedIndex="0" Margin="3" 
+                        <ComboBox Width="80" x:Name="RightUpCommandCodeCombo" SelectedIndex="0" Margin="3" 
 								  ItemsSource="{Binding TriggerTypeAndNamesPOV}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
-                        <TextBox Width="60" Margin="3"/>
-                        <Button Margin="3" Click="SettingButton_Click">設定</Button>
+                        <TextBox Width="60" x:Name="RightUpCCNoteNumTextBox" Margin="3"/>
+                        <Button Margin="3" x:Name="RightUpSettingButton" Click="SettingButton_Click">設定</Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Width="60" Text="↘" VerticalAlignment="Center" Margin="3"/>
-                        <ComboBox Width="60" SelectedIndex="0" Margin="3">
+                        <ComboBox Width="60" x:Name="RightDownChannelCombo" SelectedIndex="0" Margin="3">
                             <ComboBoxItem>1</ComboBoxItem>
                             <ComboBoxItem>2</ComboBoxItem>
                             <ComboBoxItem>3</ComboBoxItem>
@@ -417,14 +417,14 @@
                             <ComboBoxItem>15</ComboBoxItem>
                             <ComboBoxItem>16</ComboBoxItem>
                         </ComboBox>
-                        <ComboBox Width="80" SelectedIndex="0" Margin="3"
+                        <ComboBox Width="80" x:Name="RightDownCommandCodeCombo" SelectedIndex="0" Margin="3"
 								  ItemsSource="{Binding TriggerTypeAndNamesPOV}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
-                        <TextBox Width="60" Margin="3"/>
-                        <Button Margin="3" Click="SettingButton_Click">設定</Button>
+                        <TextBox Width="60" x:Name="RightDownCCNoteNumTextBox" Margin="3"/>
+                        <Button Margin="3" x:Name="RightDownSettingButton" Click="SettingButton_Click">設定</Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Width="60" Text="↙" VerticalAlignment="Center" Margin="3"/>
-                        <ComboBox Width="60" SelectedIndex="0" Margin="3">
+                        <ComboBox Width="60" x:Name="LeftDownChannelCombo" SelectedIndex="0" Margin="3">
                             <ComboBoxItem>1</ComboBoxItem>
                             <ComboBoxItem>2</ComboBoxItem>
                             <ComboBoxItem>3</ComboBoxItem>
@@ -442,14 +442,14 @@
                             <ComboBoxItem>15</ComboBoxItem>
                             <ComboBoxItem>16</ComboBoxItem>
                         </ComboBox>
-                        <ComboBox Width="80" SelectedIndex="0" Margin="3" 
+                        <ComboBox Width="80" x:Name="LeftDownCommandCodeCombo" SelectedIndex="0" Margin="3" 
 								  ItemsSource="{Binding TriggerTypeAndNamesPOV}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
-                        <TextBox Width="60" Margin="3"/>
-                        <Button Margin="3" Click="SettingButton_Click">設定</Button>
+                        <TextBox Width="60" x:Name="LeftDownCCNoteNumTextBox" Margin="3"/>
+                        <Button Margin="3" x:Name="LeftDownSettingButton" Click="SettingButton_Click">設定</Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Width="60" Text="↖" VerticalAlignment="Center" Margin="3"/>
-                        <ComboBox Width="60" SelectedIndex="0" Margin="3">
+                        <ComboBox Width="60" x:Name="LeftUpChannelCombo" SelectedIndex="0" Margin="3">
                             <ComboBoxItem>1</ComboBoxItem>
                             <ComboBoxItem>2</ComboBoxItem>
                             <ComboBoxItem>3</ComboBoxItem>
@@ -467,10 +467,10 @@
                             <ComboBoxItem>15</ComboBoxItem>
                             <ComboBoxItem>16</ComboBoxItem>
                         </ComboBox>
-                        <ComboBox Width="80" SelectedIndex="0" Margin="3"
+                        <ComboBox Width="80" x:Name="LeftUpCommandCodeCombo" SelectedIndex="0" Margin="3"
 								  ItemsSource="{Binding TriggerTypeAndNamesPOV}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
-                        <TextBox Width="60" Margin="3"/>
-                        <Button Margin="3" Click="SettingButton_Click">設定</Button>
+                        <TextBox Width="60" x:Name="LeftUpCCNoteNumTextBox" Margin="3"/>
+                        <Button Margin="3" x:Name="LeftUpSettingButton" Click="SettingButton_Click">設定</Button>
                     </StackPanel>
                 </StackPanel>
             </TabItem>
