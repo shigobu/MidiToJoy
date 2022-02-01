@@ -132,7 +132,7 @@ namespace MidiToJoy
 		{
 			if (!joystick.vJoyEnabled())
 			{
-				MessageBox.Show("vJoy driver not enabled: Failed Getting vJoy attributes.");
+				MessageBox.Show("vJoy driver not enabled: Failed Getting vJoy attributes.", appName);
 				Close();
 			}
 
@@ -140,7 +140,7 @@ namespace MidiToJoy
 
 			if ((status == VjdStat.VJD_STAT_OWN) || ((status == VjdStat.VJD_STAT_FREE) && (!joystick.AcquireVJD(vjoyId))))
 			{
-				MessageBox.Show(string.Format("Failed to acquire vJoy device number {0}.\n", vjoyId));
+				MessageBox.Show(string.Format("Failed to acquire vJoy device number {0}.\n", vjoyId), appName);
 				Close();
 			}
 
@@ -691,7 +691,14 @@ namespace MidiToJoy
 				MidiIn = null;
 			}
 
-			SaveData();
+            try
+            {
+                SaveData();
+            }
+            catch (Exception)
+            {
+                /*何もしない。例外の握りつぶし。例外の場合、保存されてないだけ。*/
+            }
 		}
 
 		/// <summary>
