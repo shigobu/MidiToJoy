@@ -264,7 +264,217 @@
 					</StackPanel>
 				</StackPanel>
 			</TabItem>
-		</TabControl>
+            <TabItem Header="POV">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="60" VerticalAlignment="Center" Margin="3" Text="方向"/>
+                        <TextBlock Width="60" VerticalAlignment="Center" Margin="3" Text="チャンネル"/>
+                        <TextBlock Width="80" VerticalAlignment="Center" Margin="3" Text="種類"/>
+                        <TextBlock Width="60" VerticalAlignment="Center" Margin="3" Text="CCNum&#xA;NoteNum"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="60" Text="↑" VerticalAlignment="Center" Margin="3"/>
+                        <ComboBox Width="60" SelectedIndex="0" Margin="3">
+                            <ComboBoxItem>1</ComboBoxItem>
+                            <ComboBoxItem>2</ComboBoxItem>
+                            <ComboBoxItem>3</ComboBoxItem>
+                            <ComboBoxItem>4</ComboBoxItem>
+                            <ComboBoxItem>5</ComboBoxItem>
+                            <ComboBoxItem>6</ComboBoxItem>
+                            <ComboBoxItem>7</ComboBoxItem>
+                            <ComboBoxItem>8</ComboBoxItem>
+                            <ComboBoxItem>9</ComboBoxItem>
+                            <ComboBoxItem>10</ComboBoxItem>
+                            <ComboBoxItem>11</ComboBoxItem>
+                            <ComboBoxItem>12</ComboBoxItem>
+                            <ComboBoxItem>13</ComboBoxItem>
+                            <ComboBoxItem>14</ComboBoxItem>
+                            <ComboBoxItem>15</ComboBoxItem>
+                            <ComboBoxItem>16</ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox Width="80" SelectedIndex="0" Margin="3"
+								  ItemsSource="{Binding TriggerTypeAndNamesPOV}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
+                        <TextBox Width="60" Margin="3"/>
+                        <Button Margin="3" Click="SettingButton_Click">設定</Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="60" Text="↓" VerticalAlignment="Center" Margin="3"/>
+                        <ComboBox Width="60" SelectedIndex="0" Margin="3">
+                            <ComboBoxItem>1</ComboBoxItem>
+                            <ComboBoxItem>2</ComboBoxItem>
+                            <ComboBoxItem>3</ComboBoxItem>
+                            <ComboBoxItem>4</ComboBoxItem>
+                            <ComboBoxItem>5</ComboBoxItem>
+                            <ComboBoxItem>6</ComboBoxItem>
+                            <ComboBoxItem>7</ComboBoxItem>
+                            <ComboBoxItem>8</ComboBoxItem>
+                            <ComboBoxItem>9</ComboBoxItem>
+                            <ComboBoxItem>10</ComboBoxItem>
+                            <ComboBoxItem>11</ComboBoxItem>
+                            <ComboBoxItem>12</ComboBoxItem>
+                            <ComboBoxItem>13</ComboBoxItem>
+                            <ComboBoxItem>14</ComboBoxItem>
+                            <ComboBoxItem>15</ComboBoxItem>
+                            <ComboBoxItem>16</ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox Width="80" SelectedIndex="0" Margin="3" 
+								  ItemsSource="{Binding TriggerTypeAndNamesPOV}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
+                        <TextBox Width="60" Margin="3"/>
+                        <Button Margin="3" Click="SettingButton_Click">設定</Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="60" Text="←" VerticalAlignment="Center" Margin="3"/>
+                        <ComboBox Width="60" SelectedIndex="0" Margin="3">
+                            <ComboBoxItem>1</ComboBoxItem>
+                            <ComboBoxItem>2</ComboBoxItem>
+                            <ComboBoxItem>3</ComboBoxItem>
+                            <ComboBoxItem>4</ComboBoxItem>
+                            <ComboBoxItem>5</ComboBoxItem>
+                            <ComboBoxItem>6</ComboBoxItem>
+                            <ComboBoxItem>7</ComboBoxItem>
+                            <ComboBoxItem>8</ComboBoxItem>
+                            <ComboBoxItem>9</ComboBoxItem>
+                            <ComboBoxItem>10</ComboBoxItem>
+                            <ComboBoxItem>11</ComboBoxItem>
+                            <ComboBoxItem>12</ComboBoxItem>
+                            <ComboBoxItem>13</ComboBoxItem>
+                            <ComboBoxItem>14</ComboBoxItem>
+                            <ComboBoxItem>15</ComboBoxItem>
+                            <ComboBoxItem>16</ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox Width="80" SelectedIndex="0" Margin="3" 
+								  ItemsSource="{Binding TriggerTypeAndNamesPOV}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
+                        <TextBox Width="60" Margin="3"/>
+                        <Button Margin="3" Click="SettingButton_Click">設定</Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="60" Text="→" VerticalAlignment="Center" Margin="3"/>
+                        <ComboBox Width="60" SelectedIndex="0" Margin="3">
+                            <ComboBoxItem>1</ComboBoxItem>
+                            <ComboBoxItem>2</ComboBoxItem>
+                            <ComboBoxItem>3</ComboBoxItem>
+                            <ComboBoxItem>4</ComboBoxItem>
+                            <ComboBoxItem>5</ComboBoxItem>
+                            <ComboBoxItem>6</ComboBoxItem>
+                            <ComboBoxItem>7</ComboBoxItem>
+                            <ComboBoxItem>8</ComboBoxItem>
+                            <ComboBoxItem>9</ComboBoxItem>
+                            <ComboBoxItem>10</ComboBoxItem>
+                            <ComboBoxItem>11</ComboBoxItem>
+                            <ComboBoxItem>12</ComboBoxItem>
+                            <ComboBoxItem>13</ComboBoxItem>
+                            <ComboBoxItem>14</ComboBoxItem>
+                            <ComboBoxItem>15</ComboBoxItem>
+                            <ComboBoxItem>16</ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox Width="80" SelectedIndex="0" Margin="3" 
+								  ItemsSource="{Binding TriggerTypeAndNamesPOV}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
+                        <TextBox Width="60" Margin="3"/>
+                        <Button Margin="3" Click="SettingButton_Click">設定</Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="60" Text="↗" VerticalAlignment="Center" Margin="3"/>
+                        <ComboBox Width="60" SelectedIndex="0" Margin="3">
+                            <ComboBoxItem>1</ComboBoxItem>
+                            <ComboBoxItem>2</ComboBoxItem>
+                            <ComboBoxItem>3</ComboBoxItem>
+                            <ComboBoxItem>4</ComboBoxItem>
+                            <ComboBoxItem>5</ComboBoxItem>
+                            <ComboBoxItem>6</ComboBoxItem>
+                            <ComboBoxItem>7</ComboBoxItem>
+                            <ComboBoxItem>8</ComboBoxItem>
+                            <ComboBoxItem>9</ComboBoxItem>
+                            <ComboBoxItem>10</ComboBoxItem>
+                            <ComboBoxItem>11</ComboBoxItem>
+                            <ComboBoxItem>12</ComboBoxItem>
+                            <ComboBoxItem>13</ComboBoxItem>
+                            <ComboBoxItem>14</ComboBoxItem>
+                            <ComboBoxItem>15</ComboBoxItem>
+                            <ComboBoxItem>16</ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox Width="80" SelectedIndex="0" Margin="3" 
+								  ItemsSource="{Binding TriggerTypeAndNamesPOV}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
+                        <TextBox Width="60" Margin="3"/>
+                        <Button Margin="3" Click="SettingButton_Click">設定</Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="60" Text="↘" VerticalAlignment="Center" Margin="3"/>
+                        <ComboBox Width="60" SelectedIndex="0" Margin="3">
+                            <ComboBoxItem>1</ComboBoxItem>
+                            <ComboBoxItem>2</ComboBoxItem>
+                            <ComboBoxItem>3</ComboBoxItem>
+                            <ComboBoxItem>4</ComboBoxItem>
+                            <ComboBoxItem>5</ComboBoxItem>
+                            <ComboBoxItem>6</ComboBoxItem>
+                            <ComboBoxItem>7</ComboBoxItem>
+                            <ComboBoxItem>8</ComboBoxItem>
+                            <ComboBoxItem>9</ComboBoxItem>
+                            <ComboBoxItem>10</ComboBoxItem>
+                            <ComboBoxItem>11</ComboBoxItem>
+                            <ComboBoxItem>12</ComboBoxItem>
+                            <ComboBoxItem>13</ComboBoxItem>
+                            <ComboBoxItem>14</ComboBoxItem>
+                            <ComboBoxItem>15</ComboBoxItem>
+                            <ComboBoxItem>16</ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox Width="80" SelectedIndex="0" Margin="3"
+								  ItemsSource="{Binding TriggerTypeAndNamesPOV}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
+                        <TextBox Width="60" Margin="3"/>
+                        <Button Margin="3" Click="SettingButton_Click">設定</Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="60" Text="↙" VerticalAlignment="Center" Margin="3"/>
+                        <ComboBox Width="60" SelectedIndex="0" Margin="3">
+                            <ComboBoxItem>1</ComboBoxItem>
+                            <ComboBoxItem>2</ComboBoxItem>
+                            <ComboBoxItem>3</ComboBoxItem>
+                            <ComboBoxItem>4</ComboBoxItem>
+                            <ComboBoxItem>5</ComboBoxItem>
+                            <ComboBoxItem>6</ComboBoxItem>
+                            <ComboBoxItem>7</ComboBoxItem>
+                            <ComboBoxItem>8</ComboBoxItem>
+                            <ComboBoxItem>9</ComboBoxItem>
+                            <ComboBoxItem>10</ComboBoxItem>
+                            <ComboBoxItem>11</ComboBoxItem>
+                            <ComboBoxItem>12</ComboBoxItem>
+                            <ComboBoxItem>13</ComboBoxItem>
+                            <ComboBoxItem>14</ComboBoxItem>
+                            <ComboBoxItem>15</ComboBoxItem>
+                            <ComboBoxItem>16</ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox Width="80" SelectedIndex="0" Margin="3" 
+								  ItemsSource="{Binding TriggerTypeAndNamesPOV}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
+                        <TextBox Width="60" Margin="3"/>
+                        <Button Margin="3" Click="SettingButton_Click">設定</Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="60" Text="↖" VerticalAlignment="Center" Margin="3"/>
+                        <ComboBox Width="60" SelectedIndex="0" Margin="3">
+                            <ComboBoxItem>1</ComboBoxItem>
+                            <ComboBoxItem>2</ComboBoxItem>
+                            <ComboBoxItem>3</ComboBoxItem>
+                            <ComboBoxItem>4</ComboBoxItem>
+                            <ComboBoxItem>5</ComboBoxItem>
+                            <ComboBoxItem>6</ComboBoxItem>
+                            <ComboBoxItem>7</ComboBoxItem>
+                            <ComboBoxItem>8</ComboBoxItem>
+                            <ComboBoxItem>9</ComboBoxItem>
+                            <ComboBoxItem>10</ComboBoxItem>
+                            <ComboBoxItem>11</ComboBoxItem>
+                            <ComboBoxItem>12</ComboBoxItem>
+                            <ComboBoxItem>13</ComboBoxItem>
+                            <ComboBoxItem>14</ComboBoxItem>
+                            <ComboBoxItem>15</ComboBoxItem>
+                            <ComboBoxItem>16</ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox Width="80" SelectedIndex="0" Margin="3"
+								  ItemsSource="{Binding TriggerTypeAndNamesPOV}" DisplayMemberPath="MIDITriggerTypeName" SelectedValuePath="Type"/>
+                        <TextBox Width="60" Margin="3"/>
+                        <Button Margin="3" Click="SettingButton_Click">設定</Button>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
 		
 	</StackPanel>
 </Window>

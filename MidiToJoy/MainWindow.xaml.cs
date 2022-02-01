@@ -71,7 +71,21 @@ namespace MidiToJoy
 			new MIDITriggerTypeAndName(MIDITriggerType.PitchWheelChange)
 		};
 
-		public MainWindow()
+        /// <summary>
+        /// 種類コンボボックスに割り当てるもの。
+        /// </summary>
+        public List<MIDITriggerTypeAndName> TriggerTypeAndNamesPOV { get; } = new List<MIDITriggerTypeAndName>()
+        {
+            new MIDITriggerTypeAndName(MIDITriggerType.Note),
+            new MIDITriggerTypeAndName(MIDITriggerType.NoteOn),
+            new MIDITriggerTypeAndName(MIDITriggerType.NoteOff),
+            new MIDITriggerTypeAndName(MIDITriggerType.ControlChange),
+            new MIDITriggerTypeAndName(MIDITriggerType.ControlChangeOn),
+            new MIDITriggerTypeAndName(MIDITriggerType.ControlChangeOff),
+            new MIDITriggerTypeAndName(MIDITriggerType.Unallocated)
+        };
+
+        public MainWindow()
 		{
 			InitializeComponent();
 			joystick = new vJoy();
@@ -454,7 +468,7 @@ namespace MidiToJoy
 				case MIDITriggerType.Note:
 				case MIDITriggerType.NoteOn:
 				case MIDITriggerType.NoteOff:
-					if (e.MidiEvent.CommandCode != MidiCommandCode.NoteOff || e.MidiEvent.CommandCode != MidiCommandCode.NoteOn)
+					if (e.MidiEvent.CommandCode != MidiCommandCode.NoteOff && e.MidiEvent.CommandCode != MidiCommandCode.NoteOn)
 					{
 						return false;
 					}
