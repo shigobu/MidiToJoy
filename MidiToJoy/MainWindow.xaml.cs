@@ -56,11 +56,27 @@ namespace MidiToJoy
 		/// 設定ボタン
 		/// </summary>
 		Dictionary<Axis, Button> AxisSettingButtons { get; set; }
+        /// <summary>
+        /// POVチャンネルコンボ
+        /// </summary>
+        Dictionary<POV, ComboBox> POVChannelCombos { get; set; }
+        /// <summary>
+        /// POVコマンドコードコンボ
+        /// </summary>
+        Dictionary<POV, ComboBox> POVCommandCodeCombos { get; set; }
+        /// <summary>
+        /// POVCCノートナンバーテキストボックス
+        /// </summary>
+        Dictionary<POV, TextBox> POVCCNumTextBoxs { get; set; }
+        /// <summary>
+        /// POV設定ボタン
+        /// </summary>
+        Dictionary<POV, Button> POVSettingButtons { get; set; }
 
-		/// <summary>
-		/// ボタン設定の内容
-		/// </summary>
-		Dictionary<int, MIDITriggerInfo> ButtonTriggerInfos { get; set; }
+        /// <summary>
+        /// ボタン設定の内容
+        /// </summary>
+        Dictionary<int, MIDITriggerInfo> ButtonTriggerInfos { get; set; }
 
 		/// <summary>
 		/// 種類コンボボックスに割り当てるもの。
@@ -154,7 +170,23 @@ namespace MidiToJoy
 			//アナログ軸の値の最大値取得
 			joystick.GetVJDAxisMax(vjoyId, HID_USAGES.HID_USAGE_X, ref MaxAxisValue);
 
-			for (int device = 0; device < MidiIn.NumberOfDevices; device++)
+            if (joystick.GetVJDButtonNumber(vjoyId) < 32)
+            {
+                MessageBox.Show("仮想デバイスのボタンの数が足りません。\n" +
+                                "32ボタン以上に設定してください。",
+                                appName,MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
+            }
+
+            if (joystick.GetVJDContPovNumber(vjoyId) < 1)
+            {
+                MessageBox.Show("仮想デバイスのPOVの数が足りません。\n" +
+                                "POVを1以上に設定してください。",
+                                appName, MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
+            }
+
+            for (int device = 0; device < MidiIn.NumberOfDevices; device++)
 			{
 				comboBoxMidiInDevices.Items.Add(MidiIn.DeviceInfo(device).ProductName);
 			}
@@ -209,7 +241,53 @@ namespace MidiToJoy
 				{Axis.Dial, DialSettingButton },
 			};
 
-			LoadData();
+            //コントロールをディクショナリに格納POV版
+            POVChannelCombos = new Dictionary<POV, ComboBox>()
+            {
+                {POV.Up, UpChannelCombo },
+                {POV.Down, DownChannelCombo },
+                {POV.Left, LeftChannelCombo },
+                {POV.Right, RightChannelCombo },
+                {POV.RightUp, RightUpChannelCombo },
+                {POV.RightDown, RightDownChannelCombo },
+                {POV.LeftDown, LeftDownChannelCombo },
+                {POV.LeftUp, LeftUpChannelCombo },
+            };
+            POVCommandCodeCombos = new Dictionary<POV, ComboBox>()
+            {
+                {POV.Up, UpCommandCodeCombo },
+                {POV.Down, DownCommandCodeCombo },
+                {POV.Left, LeftCommandCodeCombo },
+                {POV.Right, RightCommandCodeCombo },
+                {POV.RightUp, RightUpCommandCodeCombo },
+                {POV.RightDown, RightDownCommandCodeCombo },
+                {POV.LeftDown, LeftDownCommandCodeCombo },
+                {POV.LeftUp, LeftUpCommandCodeCombo },
+            };
+            POVCCNumTextBoxs = new Dictionary<POV, TextBox>()
+            {
+                {POV.Up, UpCCNoteNumTextBox },
+                {POV.Down, DownCCNoteNumTextBox },
+                {POV.Left, LeftCCNoteNumTextBox },
+                {POV.Right, RightCCNoteNumTextBox },
+                {POV.RightUp, RightUpCCNoteNumTextBox },
+                {POV.RightDown, RightDownCCNoteNumTextBox },
+                {POV.LeftDown, LeftDownCCNoteNumTextBox },
+                {POV.LeftUp, LeftUpCCNoteNumTextBox },
+            };
+            POVSettingButtons = new Dictionary<POV, Button>()
+            {
+                {POV.Up, UpSettingButton },
+                {POV.Down, DownSettingButton },
+                {POV.Left, LeftSettingButton },
+                {POV.Right, RightSettingButton },
+                {POV.RightUp, RightUpSettingButton },
+                {POV.RightDown, RightDownSettingButton },
+                {POV.LeftDown, LeftDownSettingButton },
+                {POV.LeftUp, LeftUpSettingButton },
+            };
+
+            LoadData();
 		}
 
 		private void ChangedCB(bool Removed, bool First, object userData)
@@ -345,6 +423,15 @@ namespace MidiToJoy
 					await SetVjoyButtonAsync(info.Key, e);
 				}
 			}
+
+            //POV
+            foreach (POV item in Enum.GetValues(typeof(POV)))
+            {
+                if (IsValidPOVInput(item, e))
+                {
+                    await SetVjoyPOVAsync(item, e);
+                }
+            }
 		}
 
 		/// <summary>
@@ -571,16 +658,180 @@ namespace MidiToJoy
 			}
 		}
 
-		/// <summary>
-		/// 渡された数値をある範囲から別の範囲に変換
-		/// </summary>
-		/// <param name="value">変換する入力値</param>
-		/// <param name="start1">現在の範囲の下限</param>
-		/// <param name="stop1">現在の範囲の上限</param>
-		/// <param name="start2">変換する範囲の下限</param>
-		/// <param name="stop2">変換する範囲の上限</param>
-		/// <returns>変換後の値</returns>
-		double Map(double value, double start1, double stop1, double start2, double stop2)
+        /// <summary>
+        /// 指定のmidi入力であるかどうかを返します。
+        /// </summary>
+        /// <param name="pov"></param>
+        /// <param name=""></param>
+        /// <returns></returns>
+        bool IsValidPOVInput(POV pov, MidiInMessageEventArgs e)
+        {
+            ComboBox ChannelCombo = POVChannelCombos[pov];
+            ComboBox CommandCodeCombo = POVCommandCodeCombos[pov];
+            TextBox CCNumText = POVCCNumTextBoxs[pov];
+            int channel = GetComboIndex(ChannelCombo) + 1;
+            if (e.MidiEvent.Channel != channel)
+            {
+                return false;
+            }
+
+            MIDITriggerType type = GetTypeComboValue(CommandCodeCombo);
+            int.TryParse(GetTextBoxText(CCNumText), out int ccNoteNum);
+
+            switch (type)
+            {
+                case MIDITriggerType.Note:
+                case MIDITriggerType.NoteOn:
+                case MIDITriggerType.NoteOff:
+                    if (e.MidiEvent.CommandCode != MidiCommandCode.NoteOff && e.MidiEvent.CommandCode != MidiCommandCode.NoteOn)
+                    {
+                        return false;
+                    }
+                    byte midiNoteNum = (byte)((e.RawMessage >> 8) & 0b11111111);
+                    if (midiNoteNum != ccNoteNum)
+                    {
+                        return false;
+                    }
+                    break;
+                case MIDITriggerType.ControlChange:
+                case MIDITriggerType.ControlChangeOn:
+                case MIDITriggerType.ControlChangeOff:
+                    if (e.MidiEvent.CommandCode != MidiCommandCode.ControlChange)
+                    {
+                        return false;
+                    }
+                    byte midiCCNum = (byte)((e.RawMessage >> 8) & 0b11111111);
+                    if (midiCCNum != ccNoteNum)
+                    {
+                        return false;
+                    }
+                    break;
+                default:
+                    return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// vjoyデバイスにPOV入力を指定します。
+        /// </summary>
+        /// <param name="pov"></param>
+        /// <param name="e"></param>
+        async Task SetVjoyPOVAsync(POV pov, MidiInMessageEventArgs e)
+        {
+            ComboBox CommandCodeCombo = POVCommandCodeCombos[pov];
+            MIDITriggerType type = GetTypeComboValue(CommandCodeCombo);
+
+            switch (e.MidiEvent.CommandCode)
+            {
+                case MidiCommandCode.NoteOff:
+                    if (type == MIDITriggerType.Note)
+                    {
+                        joystick.SetContPov(-1, vjoyId, 1);
+                    }
+                    else if (type == MIDITriggerType.NoteOff)
+                    {
+                        await PutPOVOnOffAsync(pov);
+                    }
+                    break;
+                case MidiCommandCode.NoteOn:
+                    if (type == MIDITriggerType.Note)
+                    {
+                        joystick.SetContPov(GetPOVAngle(pov), vjoyId, 1);
+                    }
+                    else if (type == MIDITriggerType.NoteOn)
+                    {
+                        await PutPOVOnOffAsync(pov);
+                    }
+                    else { /*何もしない*/}
+                    break;
+                case MidiCommandCode.ControlChange:
+                    byte midiCCVal = (byte)((e.RawMessage >> 16) & 0b11111111);
+
+                    if (type == MIDITriggerType.ControlChange)
+                    {
+                        if (midiCCVal >= 64)
+                        {
+                            joystick.SetContPov(GetPOVAngle(pov), vjoyId, 1);
+                        }
+                        else
+                        {
+                            joystick.SetContPov(-1, vjoyId, 1);
+                        }
+                    }
+                    else if (type == MIDITriggerType.ControlChangeOn)
+                    {
+                        if (midiCCVal >= 64)
+                        {
+                            await PutPOVOnOffAsync(pov);
+                        }
+                    }
+                    else if (type == MIDITriggerType.ControlChangeOff)
+                    {
+                        if (midiCCVal < 64)
+                        {
+                            await PutPOVOnOffAsync(pov);
+                        }
+                    }
+                    else { /*何もしない*/}
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// POVのOnOffを送信します。
+        /// </summary>
+        /// <param name="pov"></param>
+        /// <returns></returns>
+        async Task PutPOVOnOffAsync(POV pov)
+        {
+            joystick.SetContPov(GetPOVAngle(pov), vjoyId, 1);
+            await Task.Delay(buttonDelay);
+            joystick.SetContPov(-1, vjoyId, 1);
+        }
+
+        /// <summary>
+        /// POVの角度を返します。
+        /// </summary>
+        /// <param name="pov"></param>
+        /// <returns></returns>
+        int GetPOVAngle(POV pov)
+        {
+            switch (pov)
+            {
+                case POV.Up:
+                    return 0;
+                case POV.Down:
+                    return 18000;
+                case POV.Left:
+                    return 27000;
+                case POV.Right:
+                    return 9000;
+                case POV.RightUp:
+                    return 4500;
+                case POV.RightDown:
+                    return 13500;
+                case POV.LeftDown:
+                    return 22500;
+                case POV.LeftUp:
+                    return 31500;
+                default:
+                    return -1;
+            }
+        }
+
+        /// <summary>
+        /// 渡された数値をある範囲から別の範囲に変換
+        /// </summary>
+        /// <param name="value">変換する入力値</param>
+        /// <param name="start1">現在の範囲の下限</param>
+        /// <param name="stop1">現在の範囲の上限</param>
+        /// <param name="start2">変換する範囲の下限</param>
+        /// <param name="stop2">変換する範囲の上限</param>
+        /// <returns>変換後の値</returns>
+        double Map(double value, double start1, double stop1, double start2, double stop2)
 		{
 			return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
 		}
@@ -712,15 +963,8 @@ namespace MidiToJoy
 				//midiイベントを一旦削除
 				MidiIn.MessageReceived -= midiIn_MessageReceivedAsync;
 
-				Axis axis = Axis.X;
-				//どの軸のボタンが押されたか検索
-				foreach (var item in AxisSettingButtons)
-				{
-					if (ReferenceEquals(item.Value, sender))
-					{
-						axis = item.Key;
-					}
-				}
+                //どの軸のボタンが押されたか検索
+                Axis axis = AxisSettingButtons.First(x => ReferenceEquals(x.Value, sender)).Key;
 
 				//設定画面表示
 				setWindow = new MIDISetWindow();
@@ -739,7 +983,7 @@ namespace MidiToJoy
 				//CCかピッチベンドで無い場合設定しない。
 				if (setWindow.TriggerType != MIDITriggerType.ControlChange && setWindow.TriggerType != MIDITriggerType.PitchWheelChange)
 				{
-					MessageBox.Show("アナログ軸には、コントロールチェンジかピッチベンドを指定してください。", "情報", MessageBoxButton.OK, MessageBoxImage.Information);
+					MessageBox.Show("アナログ軸には、コントロールチェンジかピッチベンドを指定してください。", appName, MessageBoxButton.OK, MessageBoxImage.Information);
 					return;
 				}
 
@@ -761,12 +1005,65 @@ namespace MidiToJoy
 			}
 		}
 
-		/// <summary>
-		/// ボタンタブのボタン設定ボタンが押されたとき
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void ButtonSettingButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// 設定ボタン押下時POV版
+        /// </summary>
+        private void POVSettingButton_Click(object sender, RoutedEventArgs e)
+        {
+            MIDISetWindow setWindow = null;
+            try
+            {
+                //midiイベントを一旦削除
+                MidiIn.MessageReceived -= midiIn_MessageReceivedAsync;
+
+                //どの軸のボタンが押されたか検索
+                POV pov = POVSettingButtons.First(x => ReferenceEquals(x.Value, sender)).Key;
+
+                //設定画面表示
+                setWindow = new MIDISetWindow();
+                setWindow.Owner = this;
+                MidiIn.MessageReceived += setWindow.MidiIn_MessageReceived;
+
+                bool dialogResult = setWindow.ShowDialog() ?? false;
+                if (dialogResult == false)
+                {
+                    return;
+                }
+
+                //midi読み込みを一時停止
+                MidiIn.Stop();
+
+                //ピッチか未設定の場合、終了
+                if (setWindow.TriggerType == MIDITriggerType.PitchWheelChange || setWindow.TriggerType == MIDITriggerType.Unallocated)
+                {
+                    MessageBox.Show("POVにピッチベンドは指定できません。", appName, MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                POVChannelCombos[pov].SelectedIndex = setWindow.Channel;
+                POVCommandCodeCombos[pov].SelectedValue = setWindow.TriggerType;
+                POVCCNumTextBoxs[pov].Text = setWindow.DataByte1.ToString();
+
+            }
+            finally
+            {
+                if (setWindow != null)
+                {
+                    MidiIn.MessageReceived -= setWindow.MidiIn_MessageReceived;
+                }
+
+                //midiインベント
+                MidiIn.MessageReceived += midiIn_MessageReceivedAsync;
+                MidiIn.Start();
+            }
+        }
+
+        /// <summary>
+        /// ボタンタブのボタン設定ボタンが押されたとき
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonSettingButton_Click(object sender, RoutedEventArgs e)
 		{
 			string buttonName = ((Button)sender).Content.ToString();
 			int buttonNum = 0;
@@ -799,4 +1096,16 @@ namespace MidiToJoy
 		Slider,
 		Dial,
 	}
+
+    public enum POV
+    {
+        Up,
+        Down,
+        Left,
+        Right,
+        RightUp,
+        RightDown,
+        LeftDown,
+        LeftUp,
+    }
 }
