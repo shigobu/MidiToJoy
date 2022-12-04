@@ -6,5 +6,5 @@ nanoKONTROLなどのMIDIコントローラーをゲームで使用できます�
 このアプリは、マイクロソフトFlightSimulatorで使用することを目的としています。
 
 このアプリは、vJoyという仮想ジョイスティックを使用します。  
-http://vjoystick.sourceforge.net/site/  
-上記ページのダウンロードページからダウンロードして、インストールしてください。
+https://github.com/jshafer817/vJoy  
+上記ページのリリースページからダウンロードして、インストールしてください。
